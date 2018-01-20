@@ -1,0 +1,231 @@
+<include  file='public:header'/>
+<style>
+	.tuan_topbt{
+		float: right;
+	}
+	.add{
+        padding: 0;
+        margin: 0!important;
+        width: 112px;
+        text-align: center;
+        line-height: 35px;
+        border: 0;
+        background: #0ECEAF ;
+        color: #fff;
+		font-size: 14px;
+    }
+    .add span{
+        font-size: 20px;
+        vertical-align: center;
+        position: relative;
+        font-weight: 600;
+        display: inline-block;
+        transform: translateY(1px);
+        margin-right: 4px;
+	}
+	table tr td:first-child{
+        padding-left:30px;
+	}
+	.tuan_table{
+		margin-top: 58px;
+	}
+	.tag1{
+		color: #fff;
+		background: #0ECEAF;
+		margin-left: 16px;
+        margin-right: 16px;
+    }
+    .tag{
+        cursor: pointer;
+        display: inline-block;
+        width: 56px;
+        height: 24px;
+        text-align: center;
+        line-height: 24px;
+        border-radius: 3px;
+    }
+    .tag2{
+        border: 1px solid #C8D5E0;
+        line-height: 24px;
+		box-sizing: border-box;
+	}
+	.tag3{
+		background: #F8C556;
+		border-radius: 3px;
+		color: #fff;
+	}
+    .role_setting {
+        position: relative;
+        width: 480px;
+        border-radius: 5px;
+        background: #fff;
+        position: absolute;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: all .5s;
+        z-index: 1001;
+        border: 4px solid rgba(0,0,0,.1);
+        font-size: 14px;
+    }
+    .role_setting .rs_header {
+        background: #f3f3f3;
+        height: 31px;
+        line-height: 31px;
+        color: #666;
+        font-family: "Microsoft YaHei";
+        padding: 0 10px;
+    }
+    .rs_content {
+        box-sizing: border-box;;
+        width: 480px;
+        padding: 20px 20px 10px;
+    }
+    .rs_select {
+        text-align: center;
+        font-size: 14px;
+        line-height: 24px;
+    }
+    .rs_select select {
+        width: 160px;
+        height: 24px;
+        border-radius: 3px;
+    }
+    .rs_sure {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 30px;
+        margin-top: 30px;
+    }
+    .rs_sure div {
+        width:  120px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        border: 1px solid #666;
+        border-radius: 3px;
+    }
+    .close_role {
+        display: block;
+        width: 13px;
+        height: 13px;
+        position: absolute;
+        top: 9px;
+        right: 10px;
+        background: url('__TMPL__statics/images/dialog.png');
+    }
+</style>
+<!-- <div class="sjgl_lead">
+	<ul>
+		<li><a href="#">商家管理</a> > <a href="">管理员管理</a> > <a>管理员列表</a></li>
+	</ul>
+</div> -->
+<div class="tuan_content">
+	<a class="radius3 sjgl_an tuan_topbt add" href="<{:U('worker/create')}>"><span>+</span>添加员工</a>
+	<form method="post" action="<{:U('worker/index')}>">
+		<div class="radius5 tuan_top">
+			<div class="tuan_top_t">
+				<!--<div class="left tuan_topser_l">-->
+					<!--商家添加员工进行团购、优惠券、预约的受理，还能生成员工的微名片！<input type="text" class="radius3 tuan_topser" name="keyword" value="<{$keyword}>"/><input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>-->
+				<!--</div>-->
+			</div>
+		</div>
+	</form>
+	<table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr class="first_tr">
+		<td>真实姓名</td>
+		<td>联系电话</td>
+		<td class="arrow arrow1">创建时间
+				<span>
+						<i></i>
+						<s></s>
+					</span>
+		</td>
+		<td>操作</td>
+	</tr>
+	<script>
+            $(function () {
+                arrow('arrow1')
+                function arrow(name) {
+                    var i = 0;
+                    $('.' + name + '').on('click', function () {
+                        i++;
+                        if (i % 2) {
+                            this.childNodes[1].className = 'ascending';
+                        } else {
+                            this.childNodes[1].className = 'descending';
+                        }
+                    })
+                }
+            })
+        </script>
+	<foreach name="list" item="var">
+	<tr>
+		<td><{$var.work_name}></td>
+		<td><{$var.work_mobile}></td>
+		<td><{$var.created_at}></td>
+		<td>
+			<!--<a href="javascript: void(0)" class="tag tag3" onclick="role_setting(<{$var.proxy_work_id}>)">角色设置</a>-->
+			<!--<a class="tag tag3" href="<{:U('worker/edit',array('proxy_work_id'=>$var['proxy_work_id']))}>">角色设置</a>-->
+			<a class="tag tag1" href="<{:U('worker/edit',array('proxy_work_id'=>$var['proxy_work_id']))}>">编辑</a>
+			<!--<a class="tag tag2" href="<{:U('worker/delete',array('proxy_work_id'=>$var['proxy_work_id']))}>">删除</a>-->
+            <span class="tag tag2" onclick="deleteworker(<{$var.proxy_work_id}>)">删除</span>
+		</td>
+	</tr>
+	</foreach>
+	</table>
+	<{$page}>
+</div>
+<!-- 角色设置弹窗 -->
+<div class="role_setting">
+    <div class="rs_header">设置角色</div>
+    <div class="rs_content">
+        <div class="rs_select">角色部门：
+            <select>
+                <option>请选择角色部门</option>
+                <option>财务</option>
+                <option>超级员工</option>
+            </select>
+        </div>
+        <div class="rs_sure">
+            <div class="sure" style="background: red; color: #fff">确认</div>
+            <div class="close">取消</div>
+        </div>
+    </div>
+    <a href="javascript: void(0)" class="close_role">
+            
+    </a>
+</div>
+<script>
+    $('.close_role').on('click', function(){
+        $('.role_setting').css('opacity', '0');
+    })
+    $('.close').on('click', function(){
+        $('.role_setting').css('opacity', '0');
+    })
+    // 设置角色按钮
+    function role_setting(id) {
+        $('.role_setting').css('opacity', '1');
+    }
+</script>
+<script>
+
+    //删除员工
+    function deleteworker(id) {
+        var proxy_work_id = id;
+        if (confirm("确定删除此员工吗?")) {
+            $.ajax({
+                type: "POST",
+                url: '<{:U("worker/delete")}>',
+                data: {
+                    "proxy_work_id": proxy_work_id
+                }, success: function (result) {
+                    alert(result.msg);
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
+</script>

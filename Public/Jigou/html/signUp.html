@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>活动报名</title>
+    <link rel="stylesheet" href="../css/common.css"> 
+    <link rel="stylesheet" href="../css/signUp.css"> 
+
+
+    <script src="../js/jquery-1.8.3.min.js"></script>
+    <script src="../js/vue2.js"></script>
+</head>
+<body>
+    <div id="contentBox" v-cloak>
+        <div class="theme">
+            <div class="pic"></div>
+            <div class="txt">贝拉小镇国庆开园活动，三人同行，爸妈免单</div>
+        </div>
+        <div class="priceBox common">
+            <span class="txt fl">价格</span>
+            <span class="price fr">￥{{price}}</span>
+        </div>
+        <div class="numBox common">
+            <span class="txt fl">数量</span>
+            <div class="select fr">
+                <i class="decrease fl" @click="decrease"></i>
+                <span class="num fl">{{num}}</span>
+                <i class="add fl" @click="add"></i>
+            </div>
+        </div>
+        <div class="wxPayBox">
+            <div class="left fl">
+                <i class="fl"></i><span class="fl">微信支付</span>
+            </div>
+            <div class="right fr"></div>
+        </div>
+        <div class="pay">
+            <div class="left">
+                <span class="total">合计:￥{{totalPrice}}</span>
+            </div>
+            <div class="button">
+                结算
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var app = new Vue({
+            el:'#contentBox',
+            data:{
+                price:260.00,
+                num:1
+            },
+            computed:{
+                totalPrice(){
+                    return this.price*this.num
+                }
+            },
+            methods:{
+                add(){
+                    this.num=this.num+1;
+                },
+                decrease(){
+                    if(this.num>1){
+                        this.num=this.num-1;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

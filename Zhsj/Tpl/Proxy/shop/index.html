@@ -1,0 +1,326 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .goods_tab{
+        padding-top: 20px;
+    }
+    .goods_form{
+        overflow: visible;
+    }
+    .publish{
+        border: none;
+        width: 158px;
+        padding: 0;
+        margin: 0;
+        margin-right: 32px;
+        transform: translate(12px)
+    }
+    .publish>div{
+        width: 158px;
+    }
+    .goods_publish{
+        padding: 0;
+        margin: 0!important;
+        width: 158px;
+        text-align: center;
+        line-height: 35px;
+        border: 0;
+        background: #0ECEAF ;
+        color: #fff;
+        font-size: 14px;
+    }
+    .goods_publish span{
+        font-size: 20px;
+        vertical-align: center;
+        position: relative;
+        font-weight: 600;
+        display: inline-block;
+        transform: translateY(1px);
+        margin-right: 4px;
+    }
+    .goods_tab{
+        padding-top: 31px
+    }
+    .tuanfabu_tab{
+        padding-bottom: 0; 
+        border-bottom: none;
+        margin-bottom: 0;
+        overflow: hidden;
+        height: auto;
+    }
+    .goods_btn{
+        padding: 0 20px;
+    }
+    .goods_inp{
+        font-size: 14px;
+    }
+    .goods_name{
+        width: 340px!important;
+        margin-right: 20px;
+    }
+    .goods_time{
+        width: 210px!important;
+    }
+     .wave {
+        font-size: 20px;
+        margin: 0 5px;
+    }
+    table tr td:first-child{
+        padding-left:20px;
+    }
+    table tr{
+        border-radius: 10px;
+    }
+    /* table .first_tr{
+        border: 0;
+    }
+    table .first_tr td{
+        background: #EDF3F8;
+    }
+    table .first_tr td:first-child{
+        background: #EDF3F8;
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px;
+    }
+    table .first_tr td:last-child{
+        background: #EDF3F8;
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+    } */
+    .operation1{
+        color: #fff;
+    }
+    .operation{
+        cursor: pointer;
+        display: inline-block;
+        width: 56px;
+        height: 24px;
+        text-align: center;
+        line-height: 24px;
+        border-radius: 3px;
+    }
+    .operation2{
+        border: 1px solid #C8D5E0;
+        line-height: 22px;
+        margin-left: 10px;
+    }
+    .publish .pic{
+        vertical-align: middle;
+        margin-right: 6px;
+    }
+    /* 下架 */
+    .bgY{
+        background: #F8C556;
+    }
+    /* 取消申请 */
+    .bgR{
+        background: #FF5EC2;
+    }
+    /* 编辑 */
+    .bgG{
+        background: #0ECEAF;
+    }
+    /* 下架删除 */
+    .col1{
+        color: #A4B4C4;
+    }
+    /* 取消按钮字体样式 */
+    .cancel-btn{
+        font-family: PingFangHK-Regular;
+        font-size: 12px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+    }
+</style>
+<!-- <div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">商城</a> > <a>商城商品</a></li>
+    </ul>
+</div> -->
+
+<!-- 新增 -->
+<div class="tuanfabu_tab goods_tab">
+    <ul>
+        <li class="tuanfabu_tabli <if condition='$status eq -1'> on </if>">
+            <a href="<{:U('shop/index',array('status'=>-1))}>">全部单位</a>
+        </li>
+        <li class="tuanfabu_tabli <if condition='$status eq 0'> on </if>">
+            <a href="<{:U('shop/index',array('status'=>0))}>">待审核</a>
+        </li>
+        <li class="tuanfabu_tabli <if condition='$status eq 1'> on </if>">
+            <a href="<{:U('shop/index',array('status'=>1))}>">审核不通过</a>
+        </li>
+        <li class="tuanfabu_tabli <if condition='$status eq 2'> on </if>">
+            <a href="<{:U('shop/index',array('status'=>2))}>">已开通</a>
+        </li>
+        <li class="tuanfabu_tabli <if condition='$status eq 3'> on </if>">
+            <a href="<{:U('shop/index',array('status'=>3))}>">已关闭</a>
+        </li>
+    </ul>
+    <div class="tuanfabu_tab publish right">
+            <div class="right tuan_topfb_r" style="float: left">             
+                <a class="radius3 sjgl_an tuan_topbt goods_publish" target="main_frm" href="<{:U('shop/create')}>"><img src="__TMPL__statics/images/icon_shenqingkaitong12x12.png" alt="" class="pic">申请开通资源单位</a></div>            <!--<ul>-->
+                <!--<li class="tuanfabu_tabli on"><a href="<{:U('goods/index')}>">商城商品</a></li>-->
+                <!--<li class="tuanfabu_tabli"><a href="<{:U('order/index')}>">卖出商品</a></li>-->
+                <!--<li class="tuanfabu_tabli"><a href="<{:U('order/wait')}>">付款订单</a></li>-->
+                <!--<li class="tuanfabu_tabli"><a href="<{:U('order/wait2')}>">货到付款</a></li>-->
+                <!--<li class="tuanfabu_tabli"><a href="<{:U('order/picks')}>">捡货单</a></li>-->
+                <!--<li class="tuanfabu_tabli"><a href="<{:U('order/delivery')}>">发货管理</a></li>-->
+            <!--</ul>-->
+        </div>
+    </div>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('shop/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t goods_form">
+            <!-- <div class="left tuan_topser_l goods_inp">
+            活动名称：<input type="text" class="radius3 tuan_topser goods_name"  name="name" value="<{$name}>" style="width:180px"/>
+            活动起止时间：<input type="text" class="radius3 tuan_topser goods_time"  name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"style="width:180px"/>
+            <span class="wave">~</span> <input type="text" class="radius3 tuan_topser goods_time"  
+            name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"style="width:180px"/> -->
+            <!-- 活动状态：<select name="status" class="radius3 tuan_topser" style="width:180px">
+                <option value="">请选择订单状态</option>
+                <foreach name="status_type" item="vs" key="k">
+                    <option value="<{$k}>" <eq name="k" value="$status">selected="selected"</eq>><{$vs}></option>
+                </foreach>
+            </select>
+            排序：<select name="order" class="radius3 tuan_topser" style="width:180px">
+                <option value="">请选择排序规则</option>
+                <option value="1">按活动开始时间</option>
+                <option value="2">按报名截止时间</option>
+            </select> -->
+            <!-- <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt goods_btn" value="查询"/> -->
+        </div>
+    </div>
+    </form>
+    
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr class="first_tr">
+            <td>资源单位LOGO</td>
+            <td>资源单位名称</td>
+            <td>活动发布数量（场）</td>
+            <td>订单总数量</td>
+            <td class="arrow arrow1">创建时间
+                    <span>
+                        <i></i>
+                        <s></s>
+                    </span>
+            </td>
+            <td>状态</td>
+            <td>操作</td>
+        </tr>
+        <script>
+                $(function () {
+                    arrow('arrow1')
+                    function arrow(name) {
+                        var i = 0;
+                        $('.' + name + '').on('click', function () {
+                            i++;
+                            if (i % 2) {
+                                this.childNodes[1].className = 'ascending';
+                            } else {
+                                this.childNodes[1].className = 'descending';
+                            }
+                        })
+                    }
+                })
+            </script>
+        <!--
+        <tr>
+            <td style="height: 80px;"><img src="__ROOT__/attachs/<{$var.photo}>" style="width: 80px;margin: 0px auto;" /></td>
+            <td>几个木匠</td>
+            <td>20</td>
+            <td>260</td>
+            <td>2017-10-01~2017-12-31</td>
+            <td>已开通</td>
+            <td><span class="operation operation1 bgY">查看</span><span class="operation operation2">关闭</span></td>
+        </tr>
+        <tr>
+            <td style="height: 80px;"><img src="__ROOT__/attachs/<{$var.photo}>" style="width: 80px;margin: 0px auto;" /></td>
+            <td>智诚阳光</td>
+            <td>20</td>
+            <td>260</td>
+            <td>2017-10-01~2017-12-31</td>
+            <td>已开通</td>
+            <td><span class="operation operation1 bgY">查看</span><span class="operation operation2 bgR cancel-btn">取消申请 </span></td>
+        </tr>
+        <tr>
+            <td style="height: 80px;"><img src="__ROOT__/attachs/<{$var.photo}>" style="width: 80px;margin: 0px auto;" /></td>
+            <td>执紫之手公益</td>
+            <td>20</td>
+            <td>260</td>
+            <td>2017-10-01~2017-12-31</td>
+            <td>已开通</td>
+            <td><span class="operation operation1 bgG">编辑</span><span class="operation operation2">删除</span></td>
+        </tr>
+        -->
+        <foreach name="list" item="var">
+            <tr>
+                <td style="height: 80px;"><img src="__ROOT__/attachs/<{$var.logo}>" style="width: 80px;margin: 0px auto;" /></td>
+                <td><{$var.shop_name}></td>
+                <td><{$var.goods_num}></td>
+                <td><{$var.order_num}></td>
+                <td><{$var.created_at}></td>
+                <td><{$var.status_name}></td>
+                <td>
+                    <if condition="$var.status eq 0">
+                        <a class="operation operation1 bgY" href="<{:U('shop/edit',array('shop_id'=>$var['shop_id'],'op_type'=>1))}>">查看</a>
+                        <span class="operation operation2 bgR cancel-btn" onclick="cancelapply(<{$var.shop_id}>)">取消申请 </span>
+                    </if>
+                    <if condition="$var.status eq 1 OR $var.status eq 3">
+                        <a class="operation operation1 bgG" href="<{:U('shop/edit',array('shop_id'=>$var['shop_id'],'op_type'=>2))}>">编辑</a>
+                    </if>
+                    <if condition="$var.status eq 2">
+                        <a class="operation operation1 bgY" href="<{:U('shop/edit',array('shop_id'=>$var['shop_id'],'op_type'=>1))}>">查看</a>
+                        <span class="operation operation2" onclick="closeshop(<{$var.shop_id}>)">关闭</span>
+                    </if>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<script>
+    //关闭商家
+    function closeshop(id) {
+        var shop_id = id;
+        if (confirm("确定关闭此商家吗?")) {
+            $.ajax({
+                type: "POST",
+                url: '<{:U("shop/closeshop")}>',
+                data: {
+                    "shop_id": shop_id
+                }, success: function (result) {
+                    jcmsg(result.msg);
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
+    //取消申请
+    function cancelapply(id) {
+        var shop_id = id;
+        jcconfirm("确定取消申请吗?",function () {
+            $.ajax({
+                type: "POST",
+                url: '<{:U("shop/cancelapply")}>',
+                data: {
+                    "shop_id": shop_id
+                }, success: function (result) {
+                    jcmsg(result.msg, true);
+                }
+            });
+        });
+    }
+
+</script>
+
+<include  file='public:footer'/>

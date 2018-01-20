@@ -1,0 +1,27 @@
+<js file='__PUBLIC__/js/uploadify/ajaxfileupload.js'/>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="baocms_frm" action="<{:U('user/editclass')}>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                        <input type="hidden" name="data[class_id]" value="<{$class_id}>"/>
+                        <input type="hidden" name="school_id" value="<{$school_id}>"/>
+                        <tr>
+                            <td class="lfTdBt">*班级名称：</td>
+                            <td class="rgTdBt"><input type="text" name="data[class_name]" value="<{$class_name|default=''}>" class="scAddTextName w200" />
+                                <code>班级名称必填</code>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="确认修改" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+

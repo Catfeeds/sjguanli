@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta name="screen-orientation"content="portrait">
+    <meta name="x5-orientation"content="portrait">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>身份验证</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/identity.css">
+
+    <script src="../js/jquery-1.8.3.min.js"></script>
+    <script src="../js/vue2.js"></script>
+</head>
+<body>
+    <div id="contentBox">
+        <div class="msgBox">
+            <form>
+                <div class="telphone common">
+                    <span>手机号</span><input type="tel">
+                </div>
+                <div class="pw common">
+                    <span>密码</span><input type="password" placeholder="输入密码">
+                </div>
+                <div class="sub">
+                    <button>登录</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        var app =new Vue({
+            el:'#contentBox',
+            data:{
+
+            }
+        })
+    </script>
+
+</body>
+</html>

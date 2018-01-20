@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta name="screen-orientation"content="portrait">
+    <meta name="x5-orientation"content="portrait">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理中心</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+    <div id="contentBox" v-cloak>
+        <div class="head"> 
+            <div class="msg">
+                <img class="fl" src="../image/touxiang.png" alt="">
+                <div class="fl">
+                    <p>酷贝拉欢乐城</p>
+                    <span>余额:1300.00元</span>
+                </div>
+                <i class="fr"></i>
+            </div>
+            <div class="count">
+                <div>
+                    <p>总订单数</p>
+                    <span>34</span>
+                </div>
+                <div>
+                    <p>待使用</p>
+                    <span>24</span>
+                </div>
+                <div class="last">
+                    <p>已使用</p>
+                    <span>10</span>
+                </div>
+            </div>
+        </div>
+        <div class="lists">
+            <div class="list">
+                <div class="num">
+                    <div class=" left fl">
+                        <i></i>
+                        <span>张果果</span>
+                    </div>
+                    <div class="right fr">订单编号：88888888</div>
+                </div>
+                <div class="picBox">
+                    <div class="pic"><i class="used"></i></div>
+                    <div class="txt">
+                        <div>贝拉小镇国庆开园活动，三人同行，爸妈免单</div>
+                        <span>￥260.00</span>
+                    </div>
+                </div>
+                <div class="msgBox">
+                    <div class="num common">
+                        <div class="left fl">使用时间</div>
+                        <div class="right fr">2017.10.02 10:15</div>
+                    </div>
+                </div>
+            </div>
+            <div class="list">
+                <div class="num">
+                    <div class=" left fl">
+                        <i></i>
+                        <span>张果果</span>
+                    </div>
+                    <div class="right fr">订单编号：88888888</div>
+                </div>
+                <div class="picBox">
+                    <div class="pic"><i class="unused"></i></div>
+                    <div class="txt">
+                        <div>贝拉小镇国庆开园活动，三人同行，爸妈免单</div>
+                        <span>￥260.00</span>
+                    </div>
+                </div>
+                <div class="msgBox">
+                    <div class="num common">
+                        <div class="left fl">使用时间</div>
+                        <div class="right fr">2017.10.02 10:15</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/vue2.js"></script>
+<script src="../js/jquery-1.8.3.min.js"> </script>
+<script>
+    var app = new Vue({
+        el: '#contentBox',
+        data: {
+
+        },
+        created() {},
+        mounted() {
+            // $("[href='#']")
+
+        },
+        methods: {
+
+        }
+
+    });
+</script>
+</body>
+
+</html>

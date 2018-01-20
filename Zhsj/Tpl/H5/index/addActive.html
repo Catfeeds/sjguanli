@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta name="screen-orientation"content="portrait">
+    <meta name="x5-orientation"content="portrait">
+    <meta name="x5-page-mode" content="app">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>活动报名</title>
+	<link rel="stylesheet" href="__PUBLIC__/H5/css/mui.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/mui.picker.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/mui.dtpicker.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/signUp.css">
+
+
+    <script src="__PUBLIC__/H5/js/jquery-1.8.3.min.js"></script>
+    <script src="__PUBLIC__/H5/js/vue2.js"></script>
+    <script src="__PUBLIC__/H5/js/jsweixin-1.2.0.js"></script>
+    <script src="__PUBLIC__/H5/js/mui.min.js"></script>
+    <script src="__PUBLIC__/H5/js/mui.picker.min.js"></script>
+</head>
+<body>
+<script>
+    var _mtac = {};
+    (function() {
+        var mta = document.createElement("script");
+        mta.src = "http://pingjs.qq.com/h5/stats.js?v2.0.4";
+        mta.setAttribute("name", "MTAH5");
+        mta.setAttribute("sid", "500546406");
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(mta, s);
+    })();
+</script>
+<div id="contentBox" v-cloak>
+    <div class="theme">
+        <div class="name">活动名称</div>
+        <!-- <img src="__PUBLIC__/H5/image/pic_big110x85@2x.png" alt="" class="pic"> -->
+        <div class="txt"><{$goods_list[0]['intro']}></div>
+    </div>
+    <div class="select-box priceBox common">
+        <span>价格</span>
+        <span class="fr">￥<{$goods_list[0]['price']}>.00</span>
+    </div>
+    <!-- <volist name="goods_list" id="v"> -->
+    <div class="numBox common" data-goods-id="<{$v.goods_id}>">
+        <div class="txt fl"> <span class="ticket">报名数量</span></div>
+        <div class="select fr">
+            <i class="decrease fl" @click="decrease"><s></s></i>
+            <span class="num fl amount" ref="num">1</span>
+            <i class="add fl" @click="add"><s></s></i>
+        </div>
+    </div>
+    <div class="devide"></div>
+    <!-- </volist> -->
+
+	<div class="select-box common" @click="selectdate">
+        <span>入园日期</span>
+        <span class="fr time" v-show="year">{{year}}年{{month}}月{{date}}日</span>
+        <span class="tip fr" v-show="!year">请选择日期</span>
+    </div>
+    <div class="devide"></div>
+    <div class="useTicket common" @click="use">
+        <div class="txt fl">优惠劵</div>
+        <!-- <div class="price fr" >-￥<span ref="decreaseNum"><{$k_juan*10}></span></div> -->
+        <div class="fr triangle" v-if="juan"></div>
+        <!--<div class="fr noticket" v-if="coupon_status==2">有 <{$not_used_conpon}> 张优惠劵可用</div>-->
+        <!--<div class="fr noticket" v-if="coupon_status==1">已选择 1 张优惠劵</div>-->
+        <!--<div class="fr noticket" v-if="coupon_status==0">暂无优惠劵可用</div>-->
+        <div class="fr noticket" v-if="juan&&swoosh==0">有 <{$not_used_conpon}> 张优惠劵可用</div>
+        <div class="fr noticket" v-if="juan&&(swoosh>0||swoosh==-1)">已选择 1 张优惠劵</div>
+        <div class="fr noticket" v-if="!juan">暂无优惠劵可用</div>
+    </div>
+    <!-- <div class="slide" v-show="swoosh">
+        <div class="avilable cashTicket">
+            <span>本次可用现金劵</span>
+            <b class="fr">-￥<{$coupon_amount}></b>
+        </div> -->
+        <!-- <div class="cashTicket" v-show="juan">
+            <i></i>
+            <span>您共有
+                <{$total_juan*10}>元现金券</span>
+        </div>
+    </div> -->
+
+    <div class="inform" v-if="tmp_purchase_tips">
+        <i></i>
+        <div>
+            <{$goods_list[0]['purchase_tips']}>
+        </div>
+    </div>
+
+    <div class="pay">
+        <!--<div class="left" :class="{'lh':juan&&(swoosh>0||swoosh=='')}">-->
+            <!--<span class="total" v-show="coupon_status==0||coupon_status==2">合计：￥{{totalPrice}}.00</span>-->
+            <!--<span class="total"  v-show="coupon_status==1">合计：￥{{totalPrice}}.00</span><br>-->
+            <!--<span class="ticket" v-show="coupon_status==1">优惠券 -<{$coupon_amount}>.00</span>-->
+        <!--</div>-->
+        <div class="left" :class="{'lh':juan&&(swoosh>0||swoosh==-1)}">
+            <span class="total" v-show="swoosh==0||!juan">合计：￥{{totalPrice}}.00</span>
+            <span class="total"  v-show="juan&&(swoosh>0||swoosh==-1)">合计：￥{{totalPrice}}.00</span><br>
+            <span class="ticket" v-show="juan&&(swoosh>0||swoosh==-1)">优惠券 -<{$coupon_amount}>.00</span>
+        </div>
+        <div class="button" @click="sub()" :class="{gray:!flag}">
+            结算
+        </div>
+    </div>
+    <!-- <div class="loading" v-show="!flag">
+        <div><i></i><p>订单提交中...</p></div>
+    </div> -->
+</div>
+<script>
+    var tt = 2;
+    var app = new Vue({
+        el:'#contentBox',
+        data:{
+            goods_info:[],
+            price:"<{$goods_list[0]['price']}>",
+            price1:"<{$goods_list[0]['price']}>",
+            price2:"<{$goods_list[1]['price']}>",
+            num1:1,
+            num2:1,
+            goods_id1:"<{$goods_list[0]['goods_id']}>",
+            goods_id2:"<{$goods_list[1]['goods_id']}>",
+            //decNum:10,
+            showMask:false,
+            juan: "<{$juan_flag}>",
+            k_juan : "<{$k_juan}>",
+			year: '',
+            month:'',
+            date: '',
+            flag: 1,
+            totalPrice:"<{$goods_list[0]['price']}>",
+            tmp_purchase_tips:"<{$goods_list[0]['purchase_tips']}>",
+            original_price:0,
+            coupon_id:0,
+            new_coupon_id:0,
+            is_use_coupon:0,
+            shop_id:"<{$goods_list[0]['shop_id']}>",
+            swoosh:'',
+            coupon_status:'<{$coupon_status}>',
+            tmp_coupon_amount:'<{$coupon_amount}>',
+            numList:[1,1]
+        },
+        mounted(){
+            var mount = "<{$k_juan*10}>";
+            var that = this;
+
+            setTimeout(function () {
+                $('.inform').animate({ bottom: '66px', opacity: 1 }, 250)
+            }, 500);
+
+            this.original_price = this.totalPrice;
+
+            var coupon_id = "<{$coupon_id}>";
+            var new_coupon_id = "<{$new_coupon_id}>";
+            this.swoosh = coupon_id.toString();
+            this.coupon_id = coupon_id;
+            this.new_coupon_id = new_coupon_id;
+            console.log(coupon_id,'cccccccc')
+            if(this.swoosh=='0' || this.swoosh >0){
+                // var cookieDate = this.getCookie("<{$uid}>" + "key_date").split(',') || [];
+                var cookieY = this.getCookie("<{$uid}>" + "key_y");
+                var cookieM= this.getCookie("<{$uid}>" + "key_m");
+                var cookieD = this.getCookie("<{$uid}>" + "key_d");
+                that.year = cookieY;
+                that.month = cookieM;
+                that.date = cookieD;
+                $('.amount')[0].innerText = that.getCookie("<{$uid}>" + "key_") || 1;
+            }else{
+                that.setCookie("<{$uid}>" + "key_", '');
+                this.setCookie("<{$uid}>" + "key_y", '');
+                this.setCookie("<{$uid}>" + "key_m", '');
+                this.setCookie("<{$uid}>" + "key_d", '');
+            }
+                this.totalPrice= $('.amount')[0].innerText*this.price - this.tmp_coupon_amount;
+
+        },
+        computed:{
+        },
+        methods:{
+            use(){
+                var that = this;
+                that.setCookie("<{$uid}>" + "key_", '');
+                    // this.setCookie("<{$uid}>" + "key_date", []);
+                this.setCookie("<{$uid}>" + "key_y", '');
+                this.setCookie("<{$uid}>" + "key_m", '');
+                this.setCookie("<{$uid}>" + "key_d", '');
+                that.setCookie("<{$uid}>" + "key_", $('.amount')[0].innerText);
+                // this.setCookie("<{$uid}>" + "key_date", [that.year, that.month, that.date]);
+                this.setCookie("<{$uid}>" + "key_y", that.year);
+                this.setCookie("<{$uid}>" + "key_m", that.month);
+                this.setCookie("<{$uid}>" + "key_d",  that.date);
+                var k_juan = "<{$not_used_conpon}>";
+                if(k_juan > 0){
+                    location.href = '/frontend/index.html#/ticket?user_id='+"<{$user_id}>&shop_id=<{$shop_id}>&goods_id=<{$goods_id}>";
+                }
+                if(this.swoosh==-1){
+                    this.setCookie('tag',0)
+                }
+            },
+            sub(){
+                var that = this;
+                that.setCookie("<{$uid}>"+"key_", '');
+                // this.setCookie("<{$uid}>"+"key_date", []);
+                this.setCookie("<{$uid}>" + "key_y", '');
+                this.setCookie("<{$uid}>" + "key_m", '');
+                this.setCookie("<{$uid}>" + "key_d", '');
+                this.goods_info = [];
+                if(app.flag) {
+                    var ymd = app.year + '-' + app.month + '-' + app.date;
+                    console.log(ymd)
+                    if(ymd != '--'){
+                        app.flag=0;
+                    }
+                    // var str = '';
+                        // str = "[{'goods_id':1},{'goods_id':1}]";
+                        var obj ={};
+                        obj.goods_id = $('.numBox')[0].getAttribute('data-goods-id');
+                        obj.price = that.price;
+                        obj.num = $('.num')[0].innerText;
+                        that.goods_info.push(obj);
+                    //console.log(that.goods_info+'');return;
+                    //alert(that.goods_info[0].price);return;
+                    //var goods_info = that.goods_info;
+                    var shop_id = this.shop_id;
+                    var coupon_amount = "<{$coupon_amount}>";
+                    var coupon_id = this.coupon_id;
+                    var new_coupon_id = this.new_coupon_id;
+                    var juan = this.juan;
+                    var price = this.price;
+                    var price1 = this.price1;
+                    var price2 = this.price2;
+                    var num1 = this.num1;
+                    var num2 = this.num2;
+                    var goods_id1 = this.goods_id1;
+                    var goods_id2 = this.goods_id2;
+                    var totalPrice = 0;
+                    var k_juan = this.k_juan;
+
+                    //if(juan){
+                    //    totalPrice=parseInt(this.totalPrice)-10*parseInt(k_juan);
+                    // }else{
+                    totalPrice = this.totalPrice;
+                    original_price = this.original_price;
+                    // }
+
+                    var num = this.num;
+                    $.ajax({
+                        url: "<{:U('H5/Index/addActive')}>",
+                        data: {
+                            goods_info: that.goods_info,
+                            shop_id: shop_id,
+                            price: price,
+                            price1: price1,
+                            price2: price2,
+                            num1: num1,
+                            num2: num2,
+                            goods_id1: goods_id1,
+                            goods_id2: goods_id2,
+                            totalPrice: totalPrice,
+                            original_price: original_price,
+                            coupon_amount: coupon_amount,
+                            coupon_id: coupon_id,
+                            new_coupon_id: new_coupon_id,
+                            num: num,
+                            k_juan: k_juan,
+                            ymd: ymd
+                        },
+                        type: 'post',
+                        dataType: 'json',
+                        //contentType: false,
+                        //processData: false,
+                        success: function (ret) {
+                            app.flag = 1;
+                            if (ret.code == 1) {
+                                //alert(ret.msg);
+                                document.location.href = "/H5/Index/pay/order_id/" + ret.data.order_id;
+                                return '';
+                                //that.showMask = true;
+                            } else {
+                                //alert(ret.msg);
+                                mui.toast(ret.msg);
+                                return '';
+                            }
+                        },
+                        error: function () {
+
+                        }
+                    });
+            }
+            },
+            add(){
+                $('.num')[0].innerText = $('.num')[0].innerText / 1 + 1;
+                this.totalPrice =(this.price/1) + (this.totalPrice/1);
+            },
+            decrease(){
+                //console.log(i)
+                if ($('.num')[0].innerText > 1) {
+                $('.num')[0].innerText = $('.num')[0].innerText / 1 - 1;
+                    this.totalPrice =(this.totalPrice/1) - (this.price / 1);
+                }
+            },
+			selectdate: function () {
+                var millisecond = Date.now()+86400000,
+                startY = new Date(millisecond).getFullYear(),
+                startM = new Date(millisecond).getMonth(),
+                startD = new Date(millisecond).getDate();
+                var that = this;
+                var value = this.year + '-' + this.month + '-' + this.date;
+                var dtPicker = new mui.DtPicker({
+                    "type": "date",
+                    beginDate: new Date(startY, startM, startD),//设置开始日期 
+                    endDate: new Date(2017, 11, 31),
+                    'value': value,
+                });
+                dtPicker.show(function (selectItems) {
+                    that.year = selectItems.y.value;
+                    that.month = selectItems.m.value;
+                    that.date = selectItems.d.value;
+                });
+            },
+            getCookie(name) {
+                var arr,
+                reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+                if(arr = document.cookie.match(reg)) {
+                    return unescape(arr[2]);
+                }
+                else{
+                            return null;
+                        }
+                },
+            setCookie(key, value) {
+                document.cookie = key + '=' + value+';'+ 'path' +'=/';
+            },
+        }
+    })
+
+</script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<style>
+    body{
+        background-color: rgba(228, 228, 228, 1);
+    }
+    *{
+        box-sizing: border-box;
+        color: #6B6B6B;
+        font-family: '微软雅黑';
+    }
+    .w{
+        width: 100%;
+        min-width: 1300px;
+        /* margin: 20px 0 0 190px; */
+    }
+    .status{
+        background: white;
+        height: 200px;
+        padding: 20px 30px;
+    }
+    .status h3{
+        font-size: 16px;
+    }
+    .status p{
+        font-size: 14px;
+        margin: 20px 0 30px 0;
+    }
+    .status button{
+        font-size: 12px;
+        width: 140px;
+        /* height: 40px; */
+        text-align: center;
+        line-height: 40px;
+        background: white;
+        outline: none;
+        border: 1px solid rgb(121, 121, 121);
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    .msg{
+        height: 740px;
+        background: white;
+        margin-top:10px;
+        padding: 20px 30px; 
+    }
+    .msg h3{
+        font-size: 16px;
+        margin-bottom:25px; 
+    }
+    .msg .info{
+        margin-bottom: 40px;
+    }
+    .msg .info span{
+        font-size: 14px;
+    }
+    .msg .info .phone{
+        margin-left: 140px;
+    }
+    .fl{
+        float: left;
+    }
+    .msg .activity{
+        overflow: hidden;
+        font-size: 14px;
+        margin-bottom: 40px;
+    }
+    .msg .activity .name{
+        width: 800px;
+    }
+    .msg .activity .price{
+        width: 180px;
+    }
+    .msg .activity .total span,
+    .msg .activity .price span{
+        font-size: 14px;
+        display: block;
+        margin-top: 49px;
+    }
+    .msg .activity .total{
+        overflow: hidden;
+    }
+    .msg .activity p{
+        border-bottom: 1px solid #b5b6b5;
+        line-height: 40px;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+    .msg .activity .name .pic{
+        width: 120px;
+        height: 90px;
+        background: white;
+    }
+    .msg .activity .name .pic img{
+        width: 100%;
+        height: 100%;
+    }
+    .msg .activity .name section{
+        overflow: hidden;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .msg .activity .name section .actName{
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    .msg .activity .name section div{
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+    .order{
+        
+    }
+    .pay{
+        float: right;
+        width: 454px;
+    }
+    .order div,
+    .pay div{
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    .pay div{
+        padding-left: 50px;
+    }
+    .pay .last{
+        padding-left: 36px;
+    }
+    .pay .coupon{
+        border-bottom: 1px solid #6B6B6B;
+        padding-bottom: 12px;
+        margin-bottom: 10px;
+    }
+</style>
+<div class="w status">
+    <h3>订单状态</h3>
+    <p>当前订单状态：<{$info.status_name}></p>
+    <if condition="$info.remark neq ''">
+        <p>备注：<{$info.remark}></p>
+    </if>
+</div>
+<div class="msg w">
+    <div class="inner">
+        <div class="info">
+            <h3>订单信息</h3>
+            <span>会员昵称：<{$info.nickname}></span><span class="phone">联系电话：<{$info.mobile}></span>
+        </div>
+        <div class="activity">
+            <div class="fl name">
+                <p>活动名称</p>
+                <div class="pic fl">
+                    <img src="__ROOT__/attachs/<{$info.photo}>" alt="">
+                </div>
+                <section>
+                    <div class="actName"><{$info.title}></div>
+                    <div>活动起止时间：<{$info.start_time|date='Y-m-d H:i:s',###}> 至 <{$info.finaly_time|date='Y-m-d H:i:s',###}></div>
+                    <!--<div>报名截止时间：-</div>-->
+                </section>
+            </div>
+            <div class="fl price">
+                <p>活动价格</p>
+                <span>￥ <{$info.original_price}></span>
+            </div>
+            <div class="total">
+                <p>小计（元）</p>
+                <span><{$info.total_price}></span>
+            </div>
+        </div>
+        <div class="order fl">
+            <div>订单编号：<{$order_id}></div>
+            <div>订单时间：<{$info.created_at}></div>
+            <div>付款时间：<{$info.pay_time|date='Y-m-d H:i:s',###}></div>
+        </div>
+        <div class="pay">
+            <div>活动小计：2370.00</div>
+            <div>支付方式：微信支付</div>
+            <div class="coupon">订单促销：-100&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 优惠券</div>
+            <div class="last">订单实收款：2270.00元</div>
+        </div>
+    </div>
+</div>
+<include  file='public:footer'/>

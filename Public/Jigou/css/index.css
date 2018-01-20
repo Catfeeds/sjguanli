@@ -1,0 +1,189 @@
+body {
+    background: #f4f5f9;
+}
+
+.head {
+    height: 125px;
+    background: linear-gradient( 0deg, #1accff, #0693f6);
+    padding: 25px 20px 0;
+    position: relative; 
+}
+
+.head .msg img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #fff;
+    border-radius: 5px; 
+}
+
+.head .msg div {
+    padding: 8px;
+    color: white;
+}
+
+.head .msg div p {
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.head .msg div span {
+    font-size: 12px;
+}
+
+.head .msg i {
+    width: 21px;
+    height: 21px;
+    background: url("../image/icon_02saoma21x21@3x.png") no-repeat center/cover;
+    margin-top: 16px;
+}
+
+.head .count {
+    height: 63px;
+    width: calc(100% - 20px);
+    background: white;
+    position: absolute;
+    bottom: -31px;
+    left: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10px;
+}
+
+.head .count div {
+    flex: 1;
+    text-align: center;
+    padding-top: 10px;
+    position: relative;
+}
+
+.head .count div::after {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 15px;
+    background: #bbb;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%)
+}
+
+.head .count .last::after {
+    background: white;
+}
+
+.head .count div p {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+.head .count div span {
+    font-size: 17px;
+    color: #333;
+    font-weight: 600;
+}
+
+.lists {
+    margin-top: 40px;
+    padding: 0 10px;
+}
+
+.list {
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 12px;
+    color: #333;
+}
+
+.num {
+    padding: 0 10px;
+    margin-bottom: 1px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: #fff;
+}
+
+.num .fl img{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.num .fl span {
+    font-weight: 600;
+    color: #333;
+    vertical-align: middle;
+}
+
+.num .right {
+    color: #525252;
+}
+
+.picBox {
+    margin-bottom: 1px;
+    padding: 10px;
+    display: flex;
+    width: 100%;
+    height: 105px;
+    background-color: #fff;
+    position: relative;
+}
+
+.picBox i {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    top: 0;
+    left: 0;
+}
+
+.picBox .used {
+    background: url('../image/label_used37x37@3x.png') no-repeat center/cover;
+}
+
+.picBox .unused {
+    background: url('../image/lable_unused37x37@3x.png') no-repeat center/cover;
+}
+
+.picBox .pic {
+    position: relative;
+    margin-right: 10px;
+    /* flex: 0 0 73px; */
+    height: 85px;
+    width: 110px;
+}
+.picBox .pic img{
+    height: 100%;
+    width: 100%;
+}
+
+.picBox .txt {
+    flex: 1;
+    font-size: 14px;
+    /* font-weight: 600; */
+    color: #333;
+}
+
+.picBox .txt div {
+    margin-bottom: 7px;
+}
+
+.picBox .txt span {
+    margin-top: 7px;
+    color: #ee7907;
+}
+
+.msgBox .fl {
+    color: #999;
+}
+
+.msgBox .fr {
+    color: #333;
+    font-weight: 600;
+}

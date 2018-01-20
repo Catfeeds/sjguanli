@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-page-mode" content="app">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绑定手机号</title>
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/bind.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/mui.min.css">
+
+    <script src="__PUBLIC__/H5/js/jquery-1.8.3.min.js"></script>
+    <script src="__PUBLIC__/H5/js/vue2.js"></script>
+    <script src="__PUBLIC__/H5/js/jsweixin-1.2.0.js"></script>
+    <script src="__PUBLIC__/H5/js/mui.min.js"></script>
+</head>
+
+<body>
+<script>
+    var _mtac = {};
+    (function() {
+        var mta = document.createElement("script");
+        mta.src = "http://pingjs.qq.com/h5/stats.js?v2.0.4";
+        mta.setAttribute("name", "MTAH5");
+        mta.setAttribute("sid", "500546406");
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(mta, s);
+    })();
+</script>
+<div id="contentBox" v-cloak>
+    <div class="tel">
+        <input type="text" v-model="name" placeholder="输入姓名" name="name" id="name">
+    </div>
+    <div class="tel">
+        <input type="text" v-model="tel" placeholder="输入手机号码" name="mobile" id="mobile">
+    </div>
+    <div class="code">
+        <input type="text" placeholder="输入验证码" name="code" id="code">
+        <b v-if="show">正在获取（{{second}}s）</b>
+        <span v-else  @click="get">获取验证码</span>
+    </div>
+    <div class="second">
+    </div>
+    <div class="btn">
+        <button @click="bind">立即绑定</button>
+    </div>
+</div>
+<script>
+    var app = new Vue({
+        el: '#contentBox',
+        data: {
+            tel:'',
+            name:'',
+            second:59,
+            show:0,
+        },
+        methods: {
+            get() {
+                var mobile = this.tel;
+                if(this.second==59){
+                    if(!(/^[\u4e00-\u9fa5]{2,}$/.test(this.name.trim()))){
+                        mui.toast("请输入中文名且必须大于2位数");
+                        return false;
+                    }
+                    if (!(/^1[34578]\d{9}$/.test(this.tel))) {
+                        mui.toast("手机号错误");
+                        return false;
+                    } else {
+                        this.show = 1;
+                        var timer = setInterval(function () {
+                            app.second--;
+                            if (app.second == 0) {
+                                app.show = 0;
+                                app.second = 59;
+                                clearInterval(timer)
+                            }
+                        }, 1000)
+                    }
+                }
+                $.get("/App/sms/sendSmsCode",{
+                    phone : mobile
+                },function (ret) {
+                    if(ret.code == 1){
+                        mui.toast("短信验证码发送成功");
+                    }else{
+                        mui.toast("短信验证码发送失败");
+                    }
+                })
+
+            },
+            bind() {
+               $.post("<{:U('/H5/Index/bindMobile')}>",{
+                   mobile : this.tel,
+                   code   : $('#code').val(),
+                   name  : this.name
+               },function(ret){
+                   if(ret.code == 1){
+                       mui.toast('绑定成功');
+                       var  st = setTimeout(function(){
+                            clearTimeout(st);
+                            //document.location.href="<{:U('/H5/Index/addActive')}>";
+                           document.location.href = "/H5/Index/addActive/shop_id/" + ret.data.shop_id +"/goods_id/" + ret.data.goods_id;
+                       },1000);
+                   }else{
+                        mui.toast(ret.msg);
+                   }
+               })
+            }
+        }
+    })
+</script>
+</body>
+
+</html>

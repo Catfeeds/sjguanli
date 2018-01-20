@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>微信支付</title>
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/signUp.css">
+
+
+    <script src="__PUBLIC__/H5/js/jquery-1.8.3.min.js"></script>
+    <script src="__PUBLIC__/H5/js/vue2.js"></script>
+    <style>
+        .wxPayBox {
+            margin-top: 1px !important;
+        }
+    </style>
+</head>
+<body>
+<script>
+    var _mtac = {};
+    (function() {
+        var mta = document.createElement("script");
+        mta.src = "http://pingjs.qq.com/h5/stats.js?v2.0.4";
+        mta.setAttribute("name", "MTAH5");
+        mta.setAttribute("sid", "500546406");
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(mta, s);
+    })();
+</script>
+<div id="contentBox" >
+    <div class="mask">
+        <div class="PayBox">
+            <div class="num common">
+                <i>￥</i><span><{$total_price}></span>
+            </div>
+            <div class="wxPayBox common">
+                <div class="left fl">
+                    <i class="fl"></i><span class="fl">微信支付</span>
+                </div>
+                <div class="right fr"></div>
+            </div>
+            <div class="verfiyBtn" onclick="callpay();">
+                <button>确认支付</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<{$button}>
+
+</body>
+</html>

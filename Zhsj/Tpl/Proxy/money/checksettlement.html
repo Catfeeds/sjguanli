@@ -1,0 +1,165 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<style>
+    .contain {
+        padding: 0 32px;
+    }
+    .contain .top {
+        letter-spacing: 0;
+        padding: 26px 0;
+        position: relative;
+    }
+    .contain .top p {
+        font-family: PingFangHK-Regular;
+        font-size: 14px;
+        color: #364A5E;
+        line-height: 20px;
+    }
+    .contain .top span {
+        display: inline-block;
+        width: 48px;
+        height: 16px;
+        background: #364A5E;
+        border-radius: 3px;
+        color: #fff;
+        font-size: 12px;
+        line-height: 16px;
+        margin-left: 5px;
+        text-align: center;
+    }
+    .center_table .table_header{
+        font-family: PingFangHK-Regular;
+        font-size: 14px;
+        color: #364A5E;
+        letter-spacing: 0;
+        padding: 0 24px;
+        background: #EDF3F8;
+        border-radius: 3px;
+        height: 52px;
+        line-height: 52px;
+    }
+    .center_table .table_header span:first-child {
+        margin-right: 175px;
+    }
+    .center_table .table_header span:nth-child(2){
+        margin-right: 277px;
+    }
+    .center_table table tr td {
+        border-right: 1px solid #EAF0F6;
+        border-bottom: 1px solid #EAF0F6;
+        padding-left: 24px;
+        font-family: PingFangHK-Regular;
+        font-size: 14px;
+        color: #364A5E;
+        line-height: 40px;
+        letter-spacing: 0;
+    }
+    .center_table table tr:nth-child(n+3) td{
+        height: 54px;
+    }
+    .center_table table tr td:last-child {
+        border-right: none;
+    }
+    .center_table table tr:nth-child(2) td:last-child {
+        border-right: 1px solid #EAF0F6;
+    }
+    .footer {
+        font-family: PingFangHK-Regular;
+        font-size: 14px;
+        color: #A4B4C4;
+        letter-spacing: 0;
+        padding-top: 16px;
+        line-height: 20px;
+    }
+    .footer p:nth-child(n+3) {
+        margin-top: 16px;
+        color: #364A5E;
+    }
+    tr:first-child td::before {
+        width: 0;
+        height: 0;
+    }
+    .export_data {
+        position: absolute;
+        top: 19px;
+        right: 0;
+        width: 112px;
+        height: 34px;
+        border-radius: 3px;
+        background: #0ECEAF;
+        color: #ffffff;
+        text-align: center;
+        line-height: 34px;
+    }
+    .export_data a {
+        display: block;
+        width: 100%;
+        height: 100%;
+        color: #ffffff;
+    }
+    .export_data .pic{
+        /* vertical-align: middle; */
+        margin-right: 6px;
+    }
+</style>
+<div class="contain">
+    <div class="top">
+        <p>湖南九春教育科技股份有限公司结算单<span>代理商</span> </p>
+        <div class="export_data"><a href="#"><img src="__TMPL__statics/images/icon_download12x12.png" alt="" class="pic">下载表单</a></div>
+    </div>
+    <div class="center_table">
+        <div class="table_header">
+            <span>结算编号：JS201802288001-D</span>
+            <span>资源单位：智诚阳光教育机构</span>
+            <span>时间：2018-01-10 10:12:56</span>
+        </div>
+        <table border="0" width="100%" cellspacing="0" cellpadding="0">
+            <tbody>
+            <tr>
+                <td rowspan="2">活动名称</td>
+                <td rowspan="2">活动时间</td>
+                <td rowspan="2">订单数 (个)</td>
+                <td rowspan="2">销售价 (元)</td>
+                <td rowspan="2">总金额（元）</td>
+                <td colspan="2" style="text-align: center;">平台服务费</td>
+                <td colspan="2" style="text-align: center;">资源单位</td>
+                <td rowspan="2">业绩金额（元）</td>
+            </tr>
+            <tr>
+                <td>费率（%）</td>
+                <td>金额（元）</td>
+                <td>结算单价（元）</td>
+                <td>结算总金额（元）</td>
+            </tr>
+            <!--数据部分-->
+            <tr>
+                <td style="width: 180px; line-height:20px; padding-right: 20px">小小魔术师哈哈哈哈哈哈哈哈哈哈哈哈哈</td>
+                <td>2017-10-12 16:34:08</td>
+                <td>100</td>
+                <td>128.00</td>
+                <td>12,800.00</td>
+                <td>5%</td>
+                <td>64</td>
+                <td>100.00</td>
+                <td>10000.00</td>
+                <td>2736.00</td>
+            </tr>
+            <tr>
+                <td colspan="10">
+                    <p style="width: 50px; display: inline-block">总计</p>
+                    <p style="float: right;">人民币（大写）：壹万陆仟肆佰壹拾陆元整；    人民币（小写）：<i style="color: red">¥16,416.00</i>元</p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="footer">
+        <p>名词解释：【订单数】本次活动可结算订单数；【销售单价】本次活动在平台的销售单价；【总金额】订单数×销售单价；【平台服务费】总金额×当前代理商协议的平台服务费率；【资源单位结算单价】本次活动与资源单位的结算单价</p>
+        <p>【资源单位结算总金额】与资源单位的结算单价×订单数；【业绩金额】总金额-资源单位结算总金额-平台服务费（本结算单最终解释权归海南九春教育科技股份有限公司所有）</p>
+        <p>备注：线下结算了7个单，请核实！</p>
+        <p>审核人：爱迪生</p>
+        <p>申请人：梵高</p>
+    </div>
+</div>
+
+<include  file='public:footer'/>

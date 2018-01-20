@@ -1,0 +1,74 @@
+@charset "UTF-8";
+/* 清除内外边距 */
+* {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+            box-sizing: border-box; 
+  }
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, 
+h5, h6, pre, form, fieldset, input, p, blockquote, table, th, td, img, textarea {
+  margin: 0;
+  padding: 0; 
+  font-weight: normal;
+  font-style: normal;
+  font-size: normal;
+word-wrap:break-word;}
+
+input, textarea, select, radio, checkbox, button {
+  border: none;
+  outline: none;
+  resize: none;
+  vertical-align: middle;
+  -webkit-appearance: none; }
+
+button {
+  text-align: center; }
+
+ol, ul, li {
+  list-style: none; }
+
+img {
+  border: none;
+   }
+
+a {
+  text-decoration: none; }
+
+i,span,em,b{
+  font-weight: normal;
+  font-style: normal;
+  font-size: normal;
+}
+
+.txt-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
+[v-cloak] {
+  display: none;
+}
+
+.fr{
+  float: right;
+}
+
+.fl{
+  float: left;
+}
+
+.clearfix{
+  zoom:1;
+}
+
+.clearfix :after {
+   clear:both;
+   content:' ';
+   display:block;
+   line-height: 0;
+   height: 0;
+   visibility:hidden;
+}

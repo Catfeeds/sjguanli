@@ -1,0 +1,805 @@
+<include file='public:header' />
+<link rel="stylesheet" href="__PUBLIC__/css/biaodan.css">
+<script src="__PUBLIC__/js/uploadify/ajaxfileupload.js"></script>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    
+</style>
+<form class="main" method="post" target="baocms_frm" action="<{:U('goods/createadd')}>">
+<!-- <form class="main" method="post" action=""> -->
+    <input type="hidden" name="goods_type" value="2"/>
+    <input type="hidden" name="status_type" id="status_type" value="0"/>
+    <div class="title">
+        基本信息
+    </div>
+    <div>
+        <div class="left">
+            <i>*</i>
+            <span>所属活动分类：</span>
+        </div>
+        <select class="select" name="com_type" id="com_type">
+            <option value="0">请选择活动分类</option>
+            <foreach name="cates" item="var">
+                <eq name="var.parent_id" value="0">
+                    <option value="<{$var.cate_id}>">
+                        <{$var.cate_name}>
+                    </option>
+                </eq>
+            </foreach>
+        </select>
+    </div>
+    <script>
+        $(function () {
+            $('.select').on('change', function () {
+                $('.select').css('color', '#304B5D')
+            })
+        })
+    </script>
+    <div class="name">
+        <div class="left">
+            <i>*</i>
+            <span>活动名称：</span>
+        </div>
+        <input type="text" id="title" name="title" value="">
+        <span class="tip">(特殊字符除外:_ -* \ /,25个字以内)</span>
+    </div>
+    <div class="cultivate">
+        <section class="left">
+            <i>*</i>
+            <span>能力培养：</span>
+        </section>
+        <foreach name="abilitys" item="va">
+            <div style="float:left">
+                <b></b>
+                <input name="ability_type[]" type="checkbox" value="<{$va.id}>">
+                <label>
+                    <{$va.name}>
+                </label>
+            </div>
+        </foreach>
+        <span class="tip">(最多可选3项)</span>
+    </div>
+    <script>
+        $(function () {
+            $('.cultivate>div').on('click', function () {
+                if ($(this).children('input').prop("checked")) {
+                    $(this).children('input').prop("checked", false)
+                    $(this).children('b').removeClass('active');
+                } else {
+                    if ($('.cultivate>div input:checked').length >= 3) {
+                        return;
+                    } else {
+                        $(this).children('input').prop("checked", true);
+                        $(this).children('b').addClass('active');
+                    }
+
+                }
+            })
+        })
+    </script>
+    <div class="thumbnail">
+        <div class="left">
+            <i>*</i>
+            <span>缩略图：</span>
+        </div>
+        <div class="file">
+            <i></i>
+            <img id="photo_img" src="" alt="">
+            <s class="photo_close file_close"></s>
+        </div>
+        <input type="hidden" name="photo" value="" id="photo" />
+        <input type="file" ref="avatarInput" id="photo_file" name="photo_file" accept="image/jpg,image/jpeg,image/png">
+        <div class="tip" style="float:left">
+            <div>(支持上传.jpg、.jpeg、.png格式图片</div>
+            <div>图片比例为4:3且大小不能超过1M)</div>
+        </div>
+        <script>
+            $('#photo_file').on('change', function () {
+                if (judge("photo_file") == false) return false;
+                ajaxFileUploads();
+            });
+
+            function ajaxFileUploads() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'photo_file', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        $("#photo").val(data);
+                        $("#photo_img").attr('src', '__ROOT__/attachs/' + data).show();
+                        $('.photo_close').show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#photo_file').change(function (e) { //再次绑定
+                    ajaxFileUploads();
+                })
+                return false;
+            }
+            $('.photo_close').on('click', function(event) {
+                $("#photo").val('');
+                $("#photo_img").attr('src', '').show();
+                $('.photo_close').hide();
+                event.stopPropagation();
+            })    
+        </script>
+        <!-- <span class="tip">（<br></span> -->
+    </div>
+    <div class="banner">
+        <div class="left">
+            <i>*</i>
+            <span>详情banner广告图：</span>
+        </div>
+        <div class="pic pic1" style="float:left">
+            <div class="file">
+                <i></i>
+                <img id="img1" src="" alt="">
+                <s class="banner1_close file_close"></s>
+            </div>
+            <input type="hidden" name="banner1" id="banner1" value="" />
+            <input type="file" ref="avatarInput" name="banners1" id="banners1" accept="image/jpg,image/jpeg,image/png">
+        </div>
+        <script>
+            $('#banners1').on('change', function () {
+                if (judge("banners1") == false) return false;
+                ajaxFileUploads1();
+            });
+
+            function ajaxFileUploads1() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'banners1', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        $("#banner1").val(data);
+                        $("#img1").attr('src', '__ROOT__/attachs/' + data).show();
+                        $('.banner1_close').show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#banners1').change(function (e) { //再次绑定
+                    ajaxFileUploads1();
+                })
+                return false;
+            }
+            $('.banner1_close').on('click', function(event) {
+                $("#banner1").val('');
+                $("#img1").attr('src', '').show();
+                $('.banner1_close').hide();
+                event.stopPropagation();
+            })    
+        </script>
+        <div class="pic pic1" style="float:left">
+            <div class="file">
+                <i></i>
+                <img id="img2" src="" alt="">
+                <s class="banner2_close file_close"></s>
+            </div>
+            <input type="hidden" name="banner2" id="banner2" value="" />
+            <input type="file" ref="avatarInput" name="banners2" id="banners2" accept="image/jpg,image/jpeg,image/png">
+        </div>
+        <script>
+            $('#banners2').on('change', function () {
+                if (judge("banners2") == false) return false;
+                ajaxFileUploads2();
+            });
+
+            function ajaxFileUploads2() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'banners2', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        $("#banner2").val(data);
+                        $("#img2").attr('src', '__ROOT__/attachs/' + data).show();
+                        $('.banner2_close').show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#banners2').change(function (e) { //再次绑定
+                    ajaxFileUploads2();
+                })
+                return false;
+            }
+            $('.banner2_close').on('click', function(event) {
+                $("#banner2").val('');
+                $("#img2").attr('src', '').show();
+                $('.banner2_close').hide();
+                event.stopPropagation();
+            })
+        </script>
+        <div class="pic pic1" style="float:left">
+            <div class="file">
+                <i></i>
+                <img id="img3" src="" alt="">
+                <s class="banner3_close file_close"></s>
+            </div>
+            <input type="hidden" name="banner3" id="banner3" value="" />
+            <input type="file" ref="avatarInput" name="banners3" id="banners3" accept="image/jpg,image/jpeg,image/png">
+        </div>
+        <script>
+            $('#banners3').on('change', function () {
+                if (judge("banners3") == false) return false;
+                ajaxFileUploads3();
+            });
+
+            function ajaxFileUploads3() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'banners3', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        $("#banner3").val(data);
+                        $("#img3").attr('src', '__ROOT__/attachs/' + data).show();
+                        $('.banner3_close').show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#banners3').change(function (e) { //再次绑定
+                    ajaxFileUploads3();
+                })
+                return false;
+            }
+
+            $('.banner3_close').on('click', function(event) {
+                $("#banner3").val('');
+                $("#img3").attr('src', '').show();
+                $('.banner3_close').hide();
+                event.stopPropagation();
+            })
+
+            function judge(str) {
+                var max_size = 1024;
+                var tmpFile = document.getElementById(str);
+                var fileData = tmpFile.files[0];
+                var size = fileData.size;
+                if (size > max_size * 1024) {
+                    alert("图片大小不能超过1M");
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <div class="tip" style="float:left">
+            <div>(支持上传.jpg、.jpeg、.png格式图片</div>
+            <div>图片比例为16:9且大小不能超过1M)</div>
+        </div>
+    </div>
+    <div class="title">
+        活动详情
+    </div>
+    <div class="flow">
+        <div class="left ttop">
+            <i>*</i>
+            <span>活动流程：</span>
+        </div>
+        <div class="placeholder">
+            <span>例：上午</span>
+            <br> 7:00-7:10：签到
+            <br> 7:10-10:00：驱车赶往活动地点
+            <br> 下午
+            <br> 14:00-15:00：自由活动
+            <br> 17:00-18:00：驱车返回
+            <br> 18:00：签退
+        </div>
+        <!-- <{$detail.instructions}> -->
+        <script type="text/plain" id="data_instructions" name="flow" style="width:800px;height:360px;margin-left:158px;">
+        </script>
+        <link rel="stylesheet" href="__PUBLIC__/umeditor/themes/default/css/ueditor.min.css" type="text/css">
+        <script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor/ueditor.config.js"></script>
+        <script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor/ueditor.all.min.js"></script>
+        <script type="text/javascript" src="__PUBLIC__/umeditor/lang/zh-cn/zh-cn.js"></script>
+        <script>
+            ue = UE.getEditor('data_instructions', {
+                imageUrl: "<{:U('app/upload/editor')}>",
+                imagePath: '__ROOT__/attachs/editor/',
+                lang: 'zh-cn',
+                focus: false,
+            });
+            ue.addListener("focus", function () {
+                $('.placeholder').hide()
+            });
+            ue.addListener("blur", function () {
+                if (!ue.getPlainTxt().trim()) {
+                    $('.placeholder').show()
+                }
+            });
+        </script>
+    </div>
+    </div>
+    <div class="detail">
+        <div class="left ttop">
+            <i>*</i>
+            <span>活动详情：</span>
+        </div>
+        <script type="text/plain" id="active_detail" name="details" style="width:800px;height:360px;margin-left:158px;">
+        </script>
+        <script>
+            um = UE.getEditor('active_detail')
+        </script>
+        <!-- <div class="example">
+            <textarea name="" id="" cols="72" style="resize:none" rows="10"></textarea>
+        </div> -->
+    </div>
+    <div class="title">
+        活动价格
+    </div>
+    <div class="price">
+        <div class="left">
+            <i>*</i>
+            <span>市场价格：</span>
+        </div>
+        <div style="float:left">
+            <input type="text" name="mall_price" placeholder="0.00" value=""/>
+            <span>元</span>
+        </div>
+        <div class="left">
+            <i>*</i>
+            <span>活动价格：</span>
+        </div>
+        <div style="float:left">
+            <input type="text" name="price" id="price" placeholder="0.00" value=""/>
+            <span>元</span>
+        </div>
+        <div class="left">
+            <i>*</i>
+            <span>结算价格：</span>
+        </div>
+        <div style="float:left">
+            <input type="text" name="settlement_price" placeholder="0.00" value="">
+            <span>元</span>
+        </div>
+        <div class="tip" style="float:left">
+            <div>(结算价格必须小于活动价格，系统将按照结算金额进行活动结算)</div>
+        </div>
+    </div>
+    <div class="num">
+        <div class="left">
+            <span>最高可报名人数：</span>
+        </div>
+        <div style="float:left">
+            <input type="text" name="max_num" placeholder="0" value=""/>
+            <span>人</span>
+        </div>
+        <div class="left">
+            <span>最低可报名人数：</span>
+        </div>
+        <div style="float:left">
+            <input type="text" name="min_num" placeholder="0" value=""/>
+            <span>人</span>
+        </div>
+        <div class="left penum">
+            <b></b>
+            <input type="checkbox" name="nolimit" value="1"/>
+            <label>不限定报名人数</label>
+        </div>
+        <div class="tip" style="float:left">
+            <div>(不满最低可报名人数，系统将自动取消活动并给予用户退款，请慎重填写)</div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('.penum').on('click', function () {
+                if ($(this).children('input').prop("checked")) {
+                    $(this).children('input').prop("checked", false)
+                    $(this).children('b').removeClass('active');
+                } else {
+                    $(this).children('input').prop("checked", true);
+                    $(this).children('b').addClass('active');
+                }
+            })
+        })
+    </script>
+    <div class="title">
+        报名须知
+    </div>
+    <div class="notice">
+        <div style="overflow:hidden">
+            <div class="left">
+                <i>*</i>
+                <span>开始时间：</span>
+            </div>
+            <div style="float:left">
+                <input type="text" class="radius3 tuan_topser" name="start_time" value="" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"
+                />
+            </div>
+            <div class="left">
+                <i>*</i>
+                <span>结束时间：</span>
+            </div>
+            <div style="float:left">
+                <input type="text" class="radius3 tuan_topser" name="end_time" value="" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"
+                />
+            </div>
+            <div class="left">
+                <span>报名截止时间：</span>
+            </div>
+            <div style="float:left">
+                <input type="text" class="radius3 tuan_topser" name="finaly_time" value="" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});">
+            </div>
+        </div>
+    </div>
+    <div style="overflow:hidden">
+        <div class="left">
+            <i>*</i>
+            <span>适学阶段：</span>
+        </div>
+        <span class="phase">
+            <span>1～2年级
+                <input type="checkbox" name="suit_type[]" value="1">
+                <i></i>
+            </span>
+            <span>3～6年级
+                <input type="checkbox" name="suit_type[]" value="2">
+                <i></i>
+            </span>
+            <span>7～9年级
+                <input type="checkbox" name="suit_type[]" value="3">
+                <i></i>
+            </span>
+            <span>10～12年级
+                <input type="checkbox" name="suit_type[]" value="4">
+                <i></i>
+            </span>
+        </span>
+        <script>
+            $(function () {
+                $('.phase span').on('click', function () {
+                    // $('.phase input').prop("checked", false)
+                    if ($(this).children('input').prop("checked")) {
+                        $(this).removeClass('active');
+                        $(this).children('input').prop("checked", false)
+                    } else {
+                        $(this).children('input').prop("checked", true);
+                        $(this).addClass('active');
+                    }
+                })
+            })
+        </script>
+    </div>
+    <div>
+        <div class="left ttop">
+            <i>*</i>
+            <span>使用说明：</span>
+        </div>
+        <div class="example">
+            <textarea name="use_detail" id="use_detail" cols="72" style="resize:none" rows="10" placeholder="例:&#10;1.活动开始时间为每周六、日 早7:00-晚17:00;&#10;2.活动要求最低15人（组）报名成功;&#10;3.凭报名活动码、二维码到奥克斯广场环球中心B座25楼进行兑票;:&#10;4.活动需最多2位大人陪同;:&#10;5.活动不提供食宿，请自行携带餐食。"></textarea>
+        </div>
+    </div>
+    <div class="title">
+        退款说明
+    </div>
+    <div class="refund">
+        <div class="left">
+            <i>*</i>
+            <span>退款规则：</span>
+        </div>
+        <div style="float:left">
+            <label>
+                <i></i>
+                <input type="radio" name="refund_type" value="1"/>可以退款</label>
+            <label>
+                <i></i>
+                <input type="radio" name="refund_type" value="2"/>不可退款</label>
+            <label>
+                <i></i>
+                <input type="radio" name="refund_type" value="3"/>报名截止日前可退</label>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('.refund label').on('click', function () {
+                // $('.phase input').prop("checked", false)
+                $('.refund label').removeClass('active');
+                // $(this).children('input').prop("checked", true);
+                $(this).addClass('active');
+            })
+        })
+    </script>
+    <div>
+        <div class="left ttop">
+            <i>*</i>
+            <span>退款说明：</span>
+        </div>
+        <div class="example textarea1">
+            <span class="limit" style="display:inline-block">
+                <textarea name="refund_detail" id="refund_detail" cols="72" style="resize:none" rows="10" maxlength="300" onchange="this.value=this.value.substring(0, 300)"
+                    onkeydown="this.value=this.value.substring(0, 300)" onkeyup="this.value=this.value.substring(0, 300)" placeholder="例:&#10;1.该活动不支持退款、改签;&#10;2.该活动只可在报名截止日期进行申请退款;&#10;3.活动不满15人（组），无法达成开团要求的，系统将自动退款。"></textarea>
+                <div class="">
+                    <i>0</i>/
+                    <span>300</span>
+                </div>
+            </span>
+        </div>
+    </div>
+    <div class="title">
+        基地信息
+    </div>
+    <div class="msg_phone">
+        <div class="left">
+            <span>咨询电话：</span>
+        </div>
+        <div style="float:left">
+            <input type="text" id="phone" name="phone" value=""/>
+            <span class="tip">(不填写系统将默认单位联系人电话)</span>
+        </div>
+    </div>
+    <div class="msg_time">
+        <div class="left">
+            <span>营业时间：</span>
+        </div>
+        <div style="float:left">
+            <input type="text" class="radius3 tuan_topser" name="business_start" value="" onfocus="WdatePicker({dateFmt: 'HH:mm:ss'});"
+            />
+            <span class="wave">~</span>
+            <input type="text" class="radius3 tuan_topser" name="business_end" value="" onfocus="WdatePicker({dateFmt: 'HH:mm:ss'});"
+            />
+        </div>
+    </div>
+    <div class="address">
+        <div class="left">
+            <i>*</i>
+            <span>基地地址：</span>
+        </div>
+        <select name="province" id="province" onchange="obtains(1)">
+            <option value="0">省份</option>
+            <foreach name="province" item="vp">
+                <option value="<{$vp.id}>">
+                    <{$vp.name}>
+                </option>
+            </foreach>
+        </select>
+        <select name="city" id="city" onchange="obtains(2)">
+            <option value="0">市级</option>
+        </select>
+        <select name="area" id="area">
+            <option value="0">区/县</option>
+        </select>
+        <script>
+            function obtains(u) {
+                if (u == 1) {
+                    var id = $("#province").val();
+                    if (id == 0) {
+                        $('#city').html('');
+                        $('#area').html('');
+                        $('#city').html('<option value="0">市级</option>');
+                        $('#area').html('<option value="0">区/县</option>');
+                    }
+                } else {
+                    var id = $("#city").val();
+                    if (id == 0) {
+                        $('#area').html('');
+                        $('#area').html('<option value="0">区/县</option>');
+                    }
+                }
+
+                $.ajax({
+                    type: "POST", //提交方式
+                    url: '<{:U("goods/obtains")}>', //路径
+                    data: {
+                        "uid": id,
+                        "type": u
+                    }, //数据，这里使用的是Json格式进行传输
+                    success: function (result) { //返回数据根据结果进行相应的处理
+                        if (result.code == 1) {
+                            if (u == 1) {
+                                $('#city').html('');
+                                $('#area').html('');
+                                $('#city').html(result.data);
+                                $('#area').html('<option value="0">区/县</option>');
+                            } else if (u == 2) {
+                                $('#area').html('');
+                                $('#area').html(result.data);
+                            }
+                        }
+                    }
+                });
+
+            }
+        </script>
+        <input type="text" name="address" id="address" value="" placeholder="请填写详细地址"/>
+        <br>
+        <input class="lat" type="text" name="latandlng" placeholder="点击按钮获取地址经纬度" value=""/>
+        <!-- <a class="btn" mini="select"  w="600" h="600" href="<{:U('public/maps')}>">获取经纬度</a> -->
+        <iframe id="iframe" src="<{:U('public/maps')}>" name="bb" frameborder="0" width="600px" height="500px" onload="load()"></iframe>
+        <span class="btn">获取经纬度</span>
+        <span class="tip">(例如：112.76859973；28.76564738)</span>
+    </div>
+    <div class="msk"></div>
+    <script>
+        $('.btn').on('click', function () {
+            $('#iframe').css('visibility','visible')
+            $('.msk').show()
+        })
+        $('.msk').on('click', function () {
+            $('#iframe').css('visibility','hidden')
+            $('.msk').hide()
+        })
+
+        function load() {
+            var iframe = $('#iframe').contents();
+            iframe.find(".queren").on('click', function () {
+                $('.lat').val(iframe.find("#lng").val() && iframe.find("#lat").val() ? iframe.find("#lng").val() +
+                    ';' + iframe.find("#lat").val() : '')
+                $('#iframe').css('visibility','hidden')
+                $('.msk').hide()
+            })
+        }
+    </script>
+    <div>
+        <div class="left ttop">
+            <i>*</i>
+            <span>交通信息：</span>
+        </div>
+        <div class="example textarea2">
+            <span class="limit" style="display:inline-block">
+                <textarea name="traffic_info" id="traffic_info" cols="72" style="resize:none" rows="5" placeholder="例:：市内可乘坐158、66、112线路公交车、在世界之窗站下车即可。"
+                    maxlength="100" onchange="this.value=this.value.substring(0, 100)" onkeydown="this.value=this.value.substring(0, 100)"
+                    onkeyup="this.value=this.value.substring(0, 100)"></textarea>
+                <div class="">
+                    <i>0</i>/
+                    <span>100</span>
+                </div>
+            </span>
+        </div>
+    </div>
+    <div class="title">
+        注意事项
+    </div>
+    <div>
+        <div class="left ttop">
+            <span>温馨提示：</span>
+        </div>
+        <div class="example textarea3">
+            <span class="limit" style="display:inline-block">
+                <textarea class="" name="notice" id="notice" cols="72" style="resize:none" rows="5" maxlength="100" onchange="this.value=this.value.substring(0, 100)"
+                    onkeydown="this.value=this.value.substring(0, 100)" onkeyup="this.value=this.value.substring(0, 100)" placeholder="限定100个字以内"></textarea>
+                <div class="">
+                    <i>0</i>/
+                    <span>100</span>
+                </div>
+            </span>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            key('textarea1', 300)
+            key('textarea2', 100)
+            key('textarea3', 100)
+
+            function key(name, num) {
+                $('.' + name + ' textarea').on('keyup', function () {
+                    if ($(this).val().length >= num - 20) {
+                        $('.' + name + ' div').css('color', 'red')
+                    } else {
+                        $('.' + name + ' div').css('color', '#304B5D')
+                    }
+                    $('.' + name + ' i').text($(this).val().length)
+                })
+            }
+        })
+    </script>
+    <div class="fixed">
+        <span class="btn1" onclick="save()">保存并提交审核</span>
+        <span class="btn2" onclick="showpreview()">保存</span>
+        <!--<span class="btn2" onclick="showpreview()">保存并预览</span>-->
+    </div>
+    <div class="preview-mask">
+            <div class="phone-wrapper">
+                <div class="phone-box">
+                    <div class="contentBox activeDetail">
+                        <img class="bpic" src='__TMPL__statics/images/5a2bd01e6f406.jpg' />
+                        <div class="titleBox">
+                            <div class="text fl" id="id_title">一柄木勺的故事</div>
+                            <div class="answer fr">
+                                <em></em>
+                                <div class="phone">
+                                    <i class="icon"></i>
+                                    <p>咨询</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line1"></div>
+                        <ul class="tab" ref="tab">
+                            <li>
+                                <span>价格说明</span>
+                            </li>
+                            <li>
+                                <span>详情介绍</span>
+                            </li>
+                            <li>
+                                <span>报名须知</span>
+                            </li>
+                        </ul>
+                        <div class="line2"></div>
+                        <div class="explainBox">
+                            <div class="priceExplain">
+                                <div class="title"></div>
+                                <div class="child clearfix">
+                                    <b class="fl" id="id_titles">一柄木勺的故事</b>
+                                    <span class="fr" id="id_price">￥98</span>
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="title"></div>
+                                <div class="detailsPic"></div>
+                            </div>
+                            <div class="note">
+                                <div class="title"></div>
+                                <div class="activityDetailSpecial"></div>
+                                <div class="local">
+                                    <div class="text">
+                                        <b>活动地址：</b>
+                                        <span id="id_address">长沙市雨花区韶山南路637号几个木匠工场（长沙市外国语学校大门南侧上坡直行150米）</span>
+                                    </div>
+                                    <em class="fr"></em>
+                                    <div class="iconBox fr">
+                                        <i></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="refund">
+                                <div class="title"></div>
+                                <p id="id_refund_detail">活动开始前一天不可退不可改</p>
+                            </div>
+                            <div class="reminder">
+                                <div class="title"></div>
+                                <p id="id_notice">几个木匠工厂营业时间仅供参考。具体营业时间以实际营业时间为准。</p>
+                                <!-- <p>2.不包含商店、餐厅和其他自费项目；不再与其他优惠同享。</p> -->
+                            </div>
+                        </div>
+                        <!--<a href="javascript:;" class="signUp">立即报名</a>-->
+                        <!-- <a class="signUp" :href="linkUrl+'/h5/index/addActive/shop_id/'+msg.shop_id+'/goods_id/'+msg.goods_id+'/coupon_id/-1'" v-if="msg.is_subscribe==1">立即报名</a> -->
+                    </div>
+                </div>
+                <div class="close-preview" onclick="closepreview()">
+                    关闭预览
+                </div>
+            </div>
+        </div>
+        <script>
+            var form = document.querySelector('form');
+            function save(){
+                $('#status_type').val(2);
+                form.submit()
+            }
+            function showpreview() {
+                $('#status_type').val(1);
+                form.submit();//先不弹框预览
+//                $('#id_title').text($('#title').val());
+//                $('#id_titles').text($('#title').val());
+//                $('#id_address').text($('#province').find("option:selected").text()+$('#city').find("option:selected").text()+
+//                    $('#area').find("option:selected").text()+$('#address').val());//地址
+//                $('#id_price').text('￥'+$('#price').val());//活动价格
+//                $('#id_refund_detail').text($('#refund_detail').val());//退款说明
+//                $('#id_notice').text($('#notice').val());//温馨提示
+//                $('.preview-mask').fadeIn(200)
+            }
+            function closepreview(){
+                $('.preview-mask').fadeOut(200)
+                form.submit();
+            }
+        </script>
+</form>
+<include file='public:footer' />

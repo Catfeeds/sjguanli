@@ -1,0 +1,85 @@
+<js file='__PUBLIC__/js/uploadify/ajaxfileupload.js'/>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="baocms_frm" action="<{:U('user/createteacher')}>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                        <tr>
+                            <td class="lfTdBt">*老师姓名：</td>
+                            <td class="rgTdBt"><input type="text" name="data[teacher_name]" value="<{$detail.teacher_name|default=''}>" class="scAddTextName w200" />
+                                <code>老师姓名必填</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">*手机号码：</td>
+                            <td class="rgTdBt"><input type="text" name="data[teacher_mobile]" value="<{$detail.teacher_mobile|default=''}>" class="scAddTextName w200" />
+                                <code>手机号码必填</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">*城市：</td>
+                            <td class="rgTdBt">
+                                <select name="data[city_id]" class="seleFl w200">
+                                    <option value="">请选择城市</option>
+                                    <foreach name="cityInfo" item="vo">
+                                        <option value="<{$vo.city_id}>"><{$vo.name}></option>
+                                    </foreach>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">*学校：</td>
+                            <td class="rgTdBt">
+                                <select name="data[school_id]" class="seleFl w200" id="select_school">
+                                    <option value="">请选择学校</option>
+                                    <foreach name="schoolInfo" item="vi">
+                                        <option value="<{$vi.school_id}>"><{$vi.school_name}></option>
+                                    </foreach>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">*班级：</td>
+                            <td class="rgTdBt">
+                                <select name="data[class_id]" class="seleFl w200" id="select_classes">
+                                    <option value="">请选择班级</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <script>
+                            $("#select_school").change(function(){
+                                $.ajax({
+                                    type : "POST",  //提交方式
+                                    url : '<{:U("user/getClassInfo")}>',//路径
+                                    data : {
+                                        "id" : id
+                                    },//数据，这里使用的是Json格式进行传输
+                                    success : function(result) {//返回数据根据结果进行相应的处理
+                                        var obj = result.classInfo;
+                                        var i = 0;
+                                        if(result.code == 1){
+                                            $("#select_classes option").remove();
+                                            $("#select_classes").append("<option value=''>请选择班级</option>");
+                                            for(var i = 0;i<obj.length;i++){
+                                                $("#select_classes").append("<option value='"+obj[i].class_id+"'>"+obj[i].class_name+"</option>");
+                                            }
+                                        }else{
+                                            alert('请先选择学校!')
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+

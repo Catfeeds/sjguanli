@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="x5-page-mode" content="app">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>申请退款</title>
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/bind.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/mui.min.css">
+
+    <script src="__PUBLIC__/H5/js/jquery-1.8.3.min.js"></script>
+    <script src="__PUBLIC__/H5/js/vue2.js"></script>
+    <script src="__PUBLIC__/H5/js/jsweixin-1.2.0.js"></script>
+    <script src="__PUBLIC__/H5/js/mui.min.js"></script>
+</head>
+
+<body>
+<script>
+    var _mtac = {};
+    (function() {
+        var mta = document.createElement("script");
+        mta.src = "http://pingjs.qq.com/h5/stats.js?v2.0.4";
+        mta.setAttribute("name", "MTAH5");
+        mta.setAttribute("sid", "500546406");
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(mta, s);
+    })();
+</script>
+    <div id="contentBox" class="refund" v-cloak>
+        <div class="tel">
+            <div>订单金额</div>
+            <span>￥396.00</span>
+        </div>
+        <div class="tel should">
+            <div>应退金额</div>
+            <span>￥396.00</span>
+        </div>
+        <div class="tip">
+            <i></i><span>资金将原路返回到您的支付账户，无手续费！</span>
+        </div>
+        <div class="btn">
+            <button class="apply" @click="refund">申请退款</button>
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#contentBox',
+            data: {
+                price1: '',
+                price2: '',
+                second: 59,
+                show: 0,
+            },
+            methods: {
+                refund() {
+                    
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

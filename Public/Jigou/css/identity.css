@@ -1,0 +1,79 @@
+body {
+    background-color: #f4f5f9;
+}
+
+.msgBox .form {
+    position: relative;
+}
+
+.msgBox .form .common {
+    padding-left: 10px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: #fff;
+    margin-bottom: 1px;
+}
+
+.msgBox .form .common span {
+    display: inline-block;
+    width: 68px;
+    font-size: 13px;
+    color: 999;
+}
+
+.msgBox .form input {
+    width: 170px;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.msgBox .form input {
+    font-size: 14px;
+    color: #333;
+}
+
+.msgBox .form input::-moz-placeholder {
+    font-size: 12px;
+    color: #d3d3d3;
+}
+
+.msgBox .form input::-ms-input-placeholder {
+    font-size: 12px;
+    color: #d3d3d3;
+}
+
+.msgBox .form input::-webkit-input-placeholder {
+    font-size: 12px;
+    color: #d3d3d3;
+}
+
+.msgBox .form .sub {
+    position: absolute;
+    left: 0;
+    bottom: -70px;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.msgBox .form .sub button {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background-color: #bdbdbd;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    padding: 0;
+}
+
+.color {
+    background: linear-gradient(to right, #1accff, #0693f6);
+}
+
+.mui-toast-container {
+    bottom: 55% !important;
+}

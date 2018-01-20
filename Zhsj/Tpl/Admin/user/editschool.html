@@ -1,0 +1,86 @@
+<js file='__PUBLIC__/js/uploadify/ajaxfileupload.js'/>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="baocms_frm" action="<{:U('user/editschool')}>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                        <input type="hidden" name="data[school_id]" value="<{$school_id}>"/>
+                        <tr>
+                            <td class="lfTdBt">*学校名称：</td>
+                            <td class="rgTdBt"><input type="text" name="data[school_name]" value="<{$detail.school_name|default=''}>" class="scAddTextName w200" />
+                                <code>老师姓名必填</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">*学校地址：</td>
+                            <td class="rgTdBt"><input type="text" name="data[address]" value="<{$detail.address|default=''}>" class="scAddTextName w200" />
+                                <code>手机号码必填</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">*城市：</td>
+                            <td class="rgTdBt">
+                                <select name="data[city]" class="seleFl w200" id="select_city">
+                                    <option value=" ">请选择城市</option>
+                                    <foreach name="cityInfo" item="vo">
+                                        <option value="<{$vo.common_city_id}>" rel="<{$vo.city_id}>" <eq name="vo.common_city_id" value="$detail.city">selected="selected"</eq>>
+                                            <{$vo.name}>
+                                        </option>
+                                        <!--<input type="hidden" name="common_city_id" id="common_city_id" value="<{$vo.city_id}>"/>-->
+                                    </foreach>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">*区域：</td>
+                            <td class="rgTdBt">
+                                <select name="data[county]" class="seleFl w200" id="select_classes">
+                                    <option value="">请选择区域</option>
+                                    <foreach name="areas" item="va">
+                                        <option value="<{$va.common_area_id}>" <eq name="va.common_area_id" value="$detail.county">selected="selected"</eq>><{$va.area_name}></option>
+                                    </foreach>
+                                </select>
+                            </td>
+                        </tr>
+                        <script>
+                            var common_area_id = <{$detail.county}>;
+                            $("#select_city").change(function(){
+                                var com = $("#select_city").find("option:selected").attr("rel");
+                                $.ajax({
+                                    type : "POST",  //提交方式
+                                    url : '<{:U("user/getAreaInfo")}>',//路径
+                                    data : {"id" : com},//数据，这里使用的是Json格式进行传输
+                                    success : function(result) {//返回数据根据结果进行相应的处理
+                                        var obj = result.areaInfo;
+                                        var i = 0;
+                                        if(result.code == 1){
+                                            $("#select_classes option").remove();
+                                            $("#select_classes").append("<option value=''>请选择区域</option>");
+                                            for(var i = 0;i<obj.length;i++){
+                                                if(obj[i].common_area_id == common_area_id){
+                                                    $("#select_classes").append("<option value='"+obj[i].common_area_id+"' selected='selected'>"+obj[i].area_name+"</option>");
+                                                }else{
+                                                    $("#select_classes").append("<option value='"+obj[i].common_area_id+"'>"+obj[i].area_name+"</option>");
+                                                }
+                                            }
+                                        }else{
+                                            alert('请先选择城市!')
+                                        }
+                                    }
+                                });
+
+                            });
+                        </script>
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="确认修改" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+

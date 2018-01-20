@@ -1,0 +1,1062 @@
+<include file='public:header' />
+<script src="__PUBLIC__/js/uploadify/ajaxfileupload.js"></script>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    i {
+        font-style: normal;
+    }
+
+    .main {
+        padding: 0 20px 140px 10px;
+        min-width: 1340px;
+    }
+
+    input::-webkit-input-placeholder {
+        color: #C8D5E0;
+    }
+
+    .main>div {
+        overflow: hidden;
+        margin-top: 42px;
+    }
+
+    .main>div select {
+        width: 216px;
+        height: 34px;
+        border: 1px solid #C8D5E0;
+        border-radius: 3px;
+        position: relative;
+    }
+    .main>div .select{
+        color: #C8D5E0;
+    }
+    .main>div select option {
+        color: #304B5D;
+    }
+
+    .title {
+        background: #EDF3F8;
+        border-radius: 3px;
+        line-height: 40px;
+        margin-top: 32px;
+        padding-left: 16px;
+        font-size: 16px;
+    }
+
+    .left {
+        float: left;
+        width: 146px;
+        text-align: right;
+        line-height: 32px;
+        margin-right: 10px;
+    }
+
+    .left i {
+        display: inline-block;
+        color: red;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        transform: translateY(4px);
+    }
+
+    input {
+        height: 34px;
+        border: 1px solid #C8D5E0;
+        border-radius: 3px;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+
+    .name input {
+        width: 472px;
+    }
+
+    .tip {
+        color: #A4B4C4;
+        margin-left: 10px;
+        line-height: 34px;
+    }
+
+    label {
+        position: relative;
+        transform: translateY(1px);
+        margin: 0 16px 0 4px;
+    }
+
+    .thumbnail {
+        position: relative;
+    }
+
+    .thumbnail input {
+        border: none;
+        float: left;
+        width: 96px;
+        height: 96px;
+        position: relative;
+        z-index: 4;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .file {
+        position: absolute;
+        width: 96px;
+        height: 96px;
+        top: 0;
+        background: #ECF3F8;
+        border-radius: 3px;
+        left: 156px;
+        font-size: 76px;
+    }
+
+    .file i {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        /* cursor: pointer; */
+        background: url('__TMPL__statics/images/icon_shangchuan30x30.png') center/cover no-repeat;
+    }
+
+    .file img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+
+    .thumbnail .tip {
+        line-height: 20px;
+    }
+
+    .banner .pic {
+        float: left;
+        margin-right: 8px;
+        position: relative;
+    }
+
+    .banner input,
+    .banner .pic div {
+        width: 96px;
+        height: 96px;
+        background: #ECF3F8;
+        border-radius: 3px;
+        /* line-height: 85px; */
+        /* color: #fff; */
+        /* text-align: center; */
+        cursor: pointer;
+    }
+
+    .banner .pic div {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        font-size: 76px;
+    }
+
+    .banner .pic input {
+        position: relative;
+        z-index: 4;
+        opacity: 0;
+    }
+
+    .banner img {
+        width: 96px;
+        height: 96px;
+        border-radius: 3px;
+    }
+
+    textarea {
+        border: 1px solid #C8D5E0;
+        border-radius: 3px;
+        padding: 15px 10px;
+        line-height: 20px;
+    }
+
+    textarea::-webkit-input-placeholder {
+        color: #C8D5E0;
+    }
+
+    .price {
+        border-bottom: 1px solid #C8D5E0;
+        padding-bottom: 48px;
+    }
+
+    .price input,
+    .num input {
+        width: 96px;
+        height: 34px;
+        margin-right: 8px;
+    }
+
+    .cultivate div {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .cultivate input {
+        opacity: 0;
+    }
+
+    .cultivate div b,
+    .penum b {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        left: 0;
+        top: 9px;
+        border: 1px solid #C8D5E0;
+        border-radius: 3px;
+    }
+
+    .cultivate div .active {
+        background: url('__TMPL__statics/images/icon_xuanzhong_sel14x14.png') center/cover no-repeat;
+        border: 0;
+    }
+
+    .penum {
+        cursor: pointer;
+        position: relative;
+    }
+
+    .penum input {
+        opacity: 0;
+    }
+
+    .penum b {
+        top: 8px;
+        left: 69px;
+    }
+
+    .penum .active {
+        background: url('__TMPL__statics/images/icon_xuanzhong_sel14x14.png') center/cover no-repeat;
+        border: 0;
+    }
+
+    .num input[type='checkbox'] {
+        width: 14px;
+        height: 14px;
+        margin: 0 0 0 64px;
+        position: relative;
+        transform: translateY(-1px);
+    }
+
+    .penum {
+        width: 206px;
+        margin-right: 0;
+    }
+
+    .notice input {
+        width: 210px;
+        margin-right: 8px;
+    }
+
+    .phase span {
+        float: left;
+        width: 104px;
+        line-height: 32px;
+        border: 1px solid #C8D5E0;
+        border-radius: 3px;
+        text-align: center;
+        margin-right: 8px;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .phase .active {
+        border: 1px solid #009CF5;
+        border-radius: 3px;
+        color: #009CF5;
+    }
+
+    .phase input {
+        position: absolute;
+        visibility: hidden;
+    }
+
+    .phase .active i {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 25px;
+        height: 21px;
+        background: url('__TMPL__statics/images/title_shixue25x21.png') center/cover no-repeat;
+    }
+
+    .ttop {
+        transform: translateY(-10px);
+    }
+
+    input[type='radio'] {
+        margin-right: 8px;
+    }
+
+    label {
+        cursor: pointer;
+    }
+
+    .refund label {
+        position: relative;
+    }
+
+    .refund label input {
+        visibility: hidden;
+    }
+
+    .refund .active i {
+        background: url('__TMPL__statics/images/icon_xuanzhong_sel14x14.png') center/cover no-repeat;
+        border: 0;
+    }
+
+    .refund label i {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        left: 0;
+        top: 3px;
+        border: 1px solid #C8D5E0;
+        border-radius: 3px;
+    }
+
+    .msg_phone input {
+        width: 210px;
+    }
+    .msg_phone .num .area-code{
+        width: 96px;
+    }
+    .msg_phone .num span{
+        margin: 0 10px 0 5px;
+        font-family: PingFangHK-Regular;
+        font-size: 14px;
+        color: #364A5E;
+        letter-spacing: 0;
+    }
+    .msg_time input {
+        width: 210px;
+        height: 34px;
+        border: 1px solid #C8D5E0;
+        border-radius: 3px;
+    }
+
+    .main .address select {
+        width: 112px;
+        margin-right: 4px;
+    }
+
+    .main .address input {
+        width: 418px;
+    }
+
+    .main .address .lat {
+        width: 352px;
+        margin: 24px 0 0 156px;
+    }
+
+    .main .address .btn {
+        display: inline-block;
+        width: 96px;
+        line-height: 32px;
+        border: 1px solid #C8D5E0;
+        text-align: center;
+        /* position: relative; */
+        transform: translateY(13px);
+        margin-left: 6px;
+        cursor: pointer;
+    }
+
+    .limit {
+        position: relative;
+    }
+
+    .limit div {
+        position: absolute;
+        bottom: 20px;
+        right: 15px;
+    }
+
+    .address .tip {
+        display: inline-block;
+        transform: translateY(13px);
+    }
+
+    .fixed {
+        position: fixed;
+        bottom: 50px;
+        right: 26px;
+    }
+
+    .fixed button {
+        width: 128px;
+        height: 40px;
+        border-radius: 3px;
+        text-align: center;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .fixed .btn1 {
+        color: #fff;
+        border: 0;
+        background: #0ECEAF;
+        line-height: 40px;
+    }
+
+    .fixed .btn2 {
+        border: 1px solid #C8D5E0;
+        line-height: 38px;
+        background: #fff;
+    }
+
+    .thumbnail .left,
+    .banner .left {
+        transform: translateY(-10px);
+    }
+
+    .address {
+        position: relative;
+        overflow: visible!important;
+    }
+
+    .address #iframe {
+        position: absolute;
+        top: -100px;
+        left: 650px;
+        z-index: 5;
+        background: #fff;
+        border: 1px solid #C8D5E0;
+        visibility: hidden;
+        z-index: 1002;
+    }
+
+    .msk {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0);
+        z-index: 1001;
+        display: none;
+    }
+
+</style>
+<!-- <form class="main" method="post" target="baocms_frm"> -->
+<form class="main" method="post" target="baocms_frm" action="<{:U('shop/create')}>">
+    <div class="title">
+        基本信息
+    </div>
+
+    <div class="name">
+        <div class="left">
+            <i>*</i>
+            <span>资源单位名称：</span>
+        </div>
+        <input type="text" name="shop_name" value="<{$shop.shop_name}>">
+        <span class="tip">(特殊字符除外:_ -* \ /,25个字以内)</span>
+    </div>
+
+    <div class="thumbnail">
+        <div class="left">
+            <i>*</i>
+            <span>LOGO图：</span>
+        </div>
+        <div class="file">
+            <i></i>
+            <img src="__ROOT__/attachs/<{$shop.logo}>" alt="" id="logo_img">
+        </div>
+        <input type="hidden" name="logo" id="logo" value="<{$shop.logo}>" />
+        <input type="file" ref="avatarInput" name="logo1" id="logo1" accept="image/jpg,image/jpeg,image/png">
+        <div class="tip" style="float:left">
+            <div>(支持上传.jpg、.jpeg、.png格式图片</div>
+            <div>图片比例为4:3且大小不能超过1M)</div>
+        </div>
+        <script>
+            $('#logo1').on('change', function () {
+                if (judge("logo1") == false) return false;
+                ajaxFileUploadsLogo1();
+            });
+
+            function ajaxFileUploadsLogo1() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'logo1', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        console.log(data)
+                        $("#logo").val(data);
+                        $("#logo_img").attr('src', '__ROOT__/attachs/' + data).show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#logo1').change(function (e) { //再次绑定
+                    ajaxFileUploadsLogo1();
+                })
+                return false;
+            }
+        </script>
+        <!-- <span class="tip">（<br></span> -->
+    </div>
+    <div class="banner">
+        <div class="left">
+            <i>*</i>
+            <span>营业执照：</span>
+        </div>
+        <div class="pic pic1" style="float:left">
+            <div class="file">
+                <i></i>
+                <img src="__ROOT__/attachs/<{$shop.business_license}>" alt="" id="banner_img">
+            </div>
+            <input type="hidden" name="business_license" id="banne" value="<{$shop.business_license}>" />
+            <input type="file" ref="avatarInput" name="banner" id="banner" ccept="image/jpg,image/jpeg,image/png">
+        </div>
+        <div class="tip" style="float:left">
+            <div>(支持上传.jpg、.jpeg、.png格式图片</div>
+            <div>图片比例为16:9且大小不能超过1M)</div>
+        </div>
+        <script>
+            $('#banner').on('change', function () {
+                if (judge("banner") == false) return false;
+                ajaxFileUploadsBanner1();
+            });
+
+            function ajaxFileUploadsBanner1() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'banner', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        console.log(data)
+                        $("#banne").val(data);
+                        $("#banner_img").attr('src', '__ROOT__/attachs/' + data).show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#banner').change(function (e) { //再次绑定
+                    ajaxFileUploadsBanner1();
+                })
+                return false;
+            }
+        </script>
+    </div>
+
+    <div class="title">
+        联系方式
+    </div>
+    <div class="msg_phone">
+        <div class="left">
+            <span>资源单位电话：</span>
+        </div>
+        <div style="float:left" class="num">
+            <input type="text" placeholder="区号" class="area-code" name="area_code" value="<{$shop.area_code}>"><span>-</span><input type="text" placeholder="座机号码" name="seat_number" value="<{$shop.seat_number}>">
+        </div>
+    </div>
+    <div class="msg_time">
+        <div class="left">
+            <span>营业时间：</span>
+        </div>
+        <div style="float:left">
+            <input type="text" class="radius3 tuan_topser" name="business_start" value="<{$shop.business_start}>" onfocus="WdatePicker({dateFmt: 'HH:mm:ss'});"
+            />
+            <span class="wave">~</span>
+            <input type="text" class="radius3 tuan_topser" name="business_end" value="<{$shop.business_end}>" onfocus="WdatePicker({dateFmt: 'HH:mm:ss'});"
+            />
+        </div>
+    </div>
+    <div class="address">
+        <div class="left">
+            <i>*</i>
+            <span>基地地址：</span>
+        </div>
+        <select name="province" id="province" onchange="obtains(1)">
+            <option value="0">省份</option>
+            <foreach name="province" item="vp">
+                <option value="<{$vp.id}>" <eq name="vp.id" value="$shop.province">selected="selected"</eq>>
+                <{$vp.name}>
+                </option>
+            </foreach>
+        </select>
+        <select name="city" id="city" onchange="obtains(2)">
+            <option value="0">市级</option>
+            <foreach name="citys" item="vc">
+                <option value="<{$vc.id}>" <eq name="vc.id" value="$shop.city">selected="selected"</eq>>
+                <{$vc.name}>
+                </option>
+            </foreach>
+        </select>
+        <select name="area" id="area">
+            <option value="0">区/县</option>
+            <foreach name="areas" item="vas">
+                <option value="<{$vas.id}>" <eq name="vas.id" value="$shop.area">selected="selected"</eq>>
+                <{$vas.name}>
+                </option>
+            </foreach>
+        </select>
+        <script>
+            function obtains(u){
+                if(u == 1){
+                    var id = $("#province").val();
+                    if(id == 0){
+                        $('#city').html('');
+                        $('#area').html('');
+                        $('#city').html('<option value="0">市级</option>');
+                        $('#area').html('<option value="0">区/县</option>');
+                    }
+                }else{
+                    var id = $("#city").val();
+                    if(id == 0){
+                        $('#area').html('');
+                        $('#area').html('<option value="0">区/县</option>');
+                    }
+                }
+                $.ajax({
+                    type: "POST", //提交方式
+                    url: '<{:U("shangjia/goods/obtains")}>', //路径
+                    data: {"uid": id,"type":u}, //数据，这里使用的是Json格式进行传输
+                    success: function (result) { //返回数据根据结果进行相应的处理
+                        if(result.code == 1){
+                            if(u == 1){
+                                $('#city').html('');
+                                $('#area').html('');
+                                $('#city').html(result.data);
+                                $('#area').html('<option value="0">区/县</option>');
+                            }else if(u == 2){
+                                $('#area').html('');
+                                $('#area').html(result.data);
+                            }
+                        }
+                    }
+                });
+
+            }
+        </script>
+        <input type="text" name="addr" placeholder="请填写详细地址" value="<{$shop.addr}>">
+        <br>
+        <input class="lat" type="text" name="latitude_longitude" placeholder="点击按钮获取地址经纬度" value="<{$shop.lng}>;<{$shop.lat}>">
+        <iframe id="iframe" src="<{:U('shangjia/public/maps')}>" name="bb" frameborder="0" width="600px" height="600px" onload="load()"></iframe>
+        <span class="btn">获取经纬度</span>
+        <span class="tip">(例如：112.76859973；28.76564738)</span>
+    </div>
+    <div class="msk"></div>
+    <script>
+        $('.btn').on('click', function () {
+            $('#iframe').css('visibility','visible')
+            $('.msk').show()
+        })
+        $('.msk').on('click', function () {
+            $('#iframe').css('visibility','hidden')
+            $('.msk').hide()
+        })
+
+        function load() {
+            var iframe = $('#iframe').contents();
+            iframe.find(".queren").on('click', function () {
+                $('.lat').val(iframe.find("#lng").val() && iframe.find("#lat").val() ? iframe.find("#lng").val() +
+                ';' + iframe.find("#lat").val() : '')
+                $('#iframe').css('visibility','hidden')
+                $('.msk').hide()
+            })
+        }
+    </script>
+    <div>
+        <div class="left ttop">
+            <i>*</i>
+            <span>交通信息：</span>
+        </div>
+        <div class="example textarea2">
+            <span class="limit" style="display:inline-block">
+                <textarea name="traffic_info" id="" cols="72" style="resize:none" rows="5"
+                          placeholder="例:市内可乘坐158、66、112线路公交车、在世界之窗站下车即可。"
+                          maxlength="100" onchange="this.value=this.value.substring(0, 100)" onkeydown="this.value=this.value.substring(0, 100)"
+                          onkeyup="this.value=this.value.substring(0, 100)"><{$shop.traffic_info}></textarea>
+                <div class="">
+                    <i>0</i>/
+                    <span>100</span>
+                </div>
+            </span>
+        </div>
+    </div>
+    <div class="title">
+        资源单位联系人
+    </div>
+    <div class="msg_phone">
+        <div class="left">
+            <i>*</i>
+            <span>联系人：</span>
+        </div>
+        <div class="num">
+            <input type="text" placeholder="" name="linkman" value="<{$shop.linkman}>">
+            <span class="tip">(默认资源单位管理员)</span>
+        </div>
+        <div style="overflow:hidden;margin-top:48px">
+            <div class="left">
+                <i>*</i>
+                <span>联系电话：</span>
+            </div>
+            <div style="float:left" class="num">
+                <input type="text" placeholder="" name="mobile" value="<{$shop.mobile}>">
+            </div>
+        </div>
+    </div>
+    <div class="title">
+        其他相关信息
+    </div>
+    <div class="commonwealInfo">
+        <div class="left">
+            <span>是否具有公益性质：</span>
+        </div>
+        <select name="nature_id" id="nature_id" style="width: 210px">
+            <option value="">请选择</option>
+            <foreach name="natures" item="var">
+                <option value="<{$var.nature_id}>" <eq name="var.nature_id" value="$shop.nature_id">selected="selected"</eq>>
+                <{$var.nature_name}>
+                </option>
+            </foreach>
+        </select>
+    </div>
+    <div class="institutions">
+        <div class="left">
+            <span>直属机构：</span>
+        </div>
+        <input type="text" placeholder="" style="width: 338px" name="directly_institutions" value="<{$shop.directly_institutions}>">
+    </div>
+    <div class="banner">
+        <div class="left">
+            <i>*</i>
+            <span>现场拍摄介绍图：</span>
+        </div>
+        <div class="pic pic1" style="float:left">
+            <div class="file">
+                <i></i>
+                <img id="img1" src="__ROOT__/attachs/<{$banner1}>" alt="">
+            </div>
+            <input type="hidden" name="banner1" id="banner1" value="<{$banner1}>" />
+            <input type="file" ref="avatarInput" name="banners1" id="banners1" accept="image/jpg,image/jpeg,image/png">
+        </div>
+        <script>
+            $('#banners1').on('change', function () {
+                if (judge("banners1") == false) return false;
+                ajaxFileUploads1();
+            });
+
+            function ajaxFileUploads1() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'banners1', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        $("#banner1").val(data);
+                        $("#img1").attr('src', '__ROOT__/attachs/' + data).show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#banners1').change(function (e) { //再次绑定
+                    ajaxFileUploads1();
+                })
+                return false;
+            }
+        </script>
+        <div class="pic pic1" style="float:left">
+            <div class="file">
+                <i></i>
+                <img id="img2" src="__ROOT__/attachs/<{$banner2}>" alt="">
+            </div>
+            <input type="hidden" name="banner2" id="banner2" value="<{$banner2}>" />
+            <input type="file" ref="avatarInput" name="banners2" id="banners2" accept="image/jpg,image/jpeg,image/png">
+        </div>
+        <script>
+            $('#banners2').on('change', function () {
+                if (judge("banners2") == false) return false;
+                ajaxFileUploads2();
+            });
+
+            function ajaxFileUploads2() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'banners2', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        $("#banner2").val(data);
+                        $("#img2").attr('src', '__ROOT__/attachs/' + data).show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#banners2').change(function (e) { //再次绑定
+                    ajaxFileUploads2();
+                })
+                return false;
+            }
+        </script>
+        <div class="pic pic1" style="float:left">
+            <div class="file">
+                <i></i>
+                <img id="img3" src="__ROOT__/attachs/<{$banner3}>" alt="">
+            </div>
+            <input type="hidden" name="banner3" id="banner3" value="<{$banner3}>" />
+            <input type="file" ref="avatarInput" name="banners3" id="banners3" accept="image/jpg,image/jpeg,image/png">
+        </div>
+        <script>
+            $('#banners3').on('change', function () {
+                if (judge("banners3") == false) return false;
+                ajaxFileUploads3();
+            });
+
+            function ajaxFileUploads3() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'banners3', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        $("#banner3").val(data);
+                        $("#img3").attr('src', '__ROOT__/attachs/' + data).show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#banners3').change(function (e) { //再次绑定
+                    ajaxFileUploads3();
+                })
+                return false;
+            }
+
+            function judge(str) {
+                var max_size = 1024;
+                var tmpFile = document.getElementById(str);
+                var fileData = tmpFile.files[0];
+                var size = fileData.size;
+                if (size > max_size * 1024) {
+                    alert("图片大小不能超过1M");
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <div class="pic pic1" style="float:left">
+            <div class="file">
+                <i></i>
+                <img id="img4" src="__ROOT__/attachs/<{$banner4}>" alt="">
+            </div>
+            <input type="hidden" name="banner4" id="banner4" value="<{$banner4}>" />
+            <input type="file" ref="avatarInput" name="banners4" id="banners4" accept="image/jpg,image/jpeg,image/png">
+        </div>
+        <script>
+            $('#banners4').on('change', function () {
+                if (judge("banners4") == false) return false;
+                ajaxFileUploads4();
+            });
+
+            function ajaxFileUploads4() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'banners4', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        $("#banner4").val(data);
+                        $("#img4").attr('src', '__ROOT__/attachs/' + data).show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#banners4').change(function (e) { //再次绑定
+                    ajaxFileUploads4();
+                })
+                return false;
+            }
+
+            function judge(str) {
+                var max_size = 1024;
+                var tmpFile = document.getElementById(str);
+                var fileData = tmpFile.files[0];
+                var size = fileData.size;
+                if (size > max_size * 1024) {
+                    alert("图片大小不能超过1M");
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <div class="pic pic1" style="float:left">
+            <div class="file">
+                <i></i>
+                <img id="img5" src="__ROOT__/attachs/<{$banner5}>" alt="">
+            </div>
+            <input type="hidden" name="banner5" id="banner5" value="<{$banner5}>" />
+            <input type="file" ref="avatarInput" name="banners5" id="banners5" accept="image/jpg,image/jpeg,image/png">
+        </div>
+        <script>
+            $('#banners5').on('change', function () {
+                if (judge("banners5") == false) return false;
+                ajaxFileUploads5();
+            });
+
+            function ajaxFileUploads5() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'banners5', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        $("#banner5").val(data);
+                        $("#img5").attr('src', '__ROOT__/attachs/' + data).show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#banners5').change(function (e) { //再次绑定
+                    ajaxFileUploads5();
+                })
+                return false;
+            }
+
+            function judge(str) {
+                var max_size = 1024;
+                var tmpFile = document.getElementById(str);
+                var fileData = tmpFile.files[0];
+                var size = fileData.size;
+                if (size > max_size * 1024) {
+                    alert("图片大小不能超过1M");
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <div class="tip" style="float:left">
+            <div>(支持上传.jpg、.jpeg、.png格式图片</div>
+            <div>图片比例为16:9且大小不能超过1M)</div>
+        </div>
+    </div>
+    <div class="security_guarantee">
+        <div class="left" style="width: 100px; margin-left: 32px">
+            <span>资源单位设有配套相关的安全保障：</span>
+        </div>
+        <div class="example textarea2" style="margin-top: 10px">
+            <span class="limit" style="display:inline-block">
+                <textarea name="safeguards" id="safeguards" cols="72" rows="7" style="resize:none" maxlength="100" onchange="this.value=this.value.substring(0, 100)" onkeydown="this.value=this.value.substring(0, 100)"
+                          onkeyup="this.value=this.value.substring(0, 100)"><{$shop.safeguards}></textarea>
+            </span>
+        </div>
+    </div>
+    <div class="title">
+        协议
+    </div>
+    <div class="banner">
+        <div class="left" style="width: 100px; margin-left: 32px">
+            <span>资源单位合作框架协议：</span>
+        </div>
+        <div class="pic pic1" style="float:left">
+            <div class="file">
+                <i></i>
+                <img id="agreement_img" src="__ROOT__/attachs/<{$shop.agreement}>" alt="">
+            </div>
+            <input type="hidden" name="agreement" id="agreement" value="<{$shop.agreement}>" />
+            <input type="file" ref="avatarInput" name="agreement1" id="agreement1" accept="image/jpg,image/jpeg,image/png">
+        </div>
+        <script>
+            $('#agreement1').on('change', function () {
+                if (judge("agreement1") == false) return false;
+                ajaxFileUploadsAgreement1();
+            });
+
+            function ajaxFileUploadsAgreement1() {
+                $.ajaxFileUpload({
+                    url: '<{:U("app/upload/uploadify",array("model"=>"goods","flag"=>3,"type"=>2))}>',
+                    type: 'POST',
+                    secureuri: false,
+                    fileElementId: 'agreement1', //file标签的id
+                    dataType: 'content', //返回数据的类型
+                    success: function (data, status) {
+                        console.log(data)
+                        $("#agreement").val(data);
+                        $("#agreement_img").attr('src', '__ROOT__/attachs/' + data).show();
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+                $('#agreement1').change(function (e) { //再次绑定
+                    ajaxFileUploadsAgreement1();
+                })
+                return false;
+            }
+        </script>
+    </div>
+    <script>
+        $(function () {
+            key('textarea1', 300)
+            key('textarea2', 100)
+            key('textarea3', 100)
+            function key(name, num) {
+                $('.' + name + ' textarea').on('keyup', function () {
+                    if ($(this).val().length >= num - 20) {
+                        $('.' + name + ' div').css('color', 'red')
+                    } else {
+                        $('.' + name + ' div').css('color', '#304B5D')
+                    }
+                    $('.' + name + ' i').text($(this).val().length)
+                })
+            }
+        })
+    </script>
+
+    <div class="fixed">
+        <if condition="$op_type eq 2">
+            <button class="btn1" onclick="saveapply()">保存并提交审核</button>
+        </if>
+    </div>
+
+    <script>
+        var form = document.querySelector('form');
+        //保存并提交审核
+        function saveapply(){
+            //$('#save_type').val(1);
+            form.submit()
+        }
+        /*
+         //保存
+         function save() {
+         $('#save_type').val(2);
+         form.submit();
+         }
+         */
+    </script>
+
+</form>
+<include file='public:footer' />

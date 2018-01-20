@@ -1,0 +1,680 @@
+<include file='public:header' />
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .goods_tab {
+        padding-top: 20px;
+    }
+
+    .goods_form {
+        overflow: visible;
+    }
+
+    .publish {
+        border: none;
+        width: 112px;
+        margin-right: 10px;
+        padding: 0;
+        margin: 0!important;
+        transform: translate(12px)
+    }
+
+    .publish>div {
+        width: 112px;
+    }
+
+    .goods_publish {
+        padding: 0;
+        margin: 0!important;
+        width: 112px;
+        text-align: center;
+        line-height: 35px;
+        border: 0;
+        background: #0ECEAF;
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .goods_publish span {
+        font-size: 20px;
+        vertical-align: center;
+        position: relative;
+        font-weight: 600;
+        display: inline-block;
+        transform: translateY(1px);
+        margin-right: 4px;
+    }
+
+    .goods_btn {
+        padding: 0 20px;
+    }
+
+    .goods_inp {
+        font-size: 14px;
+    }
+
+    .goods_name {
+        width: 340px!important;
+        margin-right: 20px;
+    }
+
+    .goods_time {
+        width: 210px!important;
+    }
+
+    .wave {
+        font-size: 20px;
+        margin: 0 5px;
+    }
+
+    table tr td:first-child {
+        padding-left: 20px;
+    }
+
+    table tr {
+        border-radius: 10px;
+    }
+    .operation1 {
+        color: #fff;
+    }
+
+    .operation {
+        cursor: pointer;
+        display: inline-block;
+        width: 56px;
+        height: 24px;
+        text-align: center;
+        line-height: 24px;
+        border-radius: 3px;
+    }
+
+    .operation2 {
+        border: 1px solid #C8D5E0;
+        line-height: 22px;
+        margin-left: 10px;
+    }
+
+    .search-proxy {
+        height: 85px;
+        line-height: 85px;
+    }
+
+    .search-proxy span {
+        font-family: PingFangHK-Regular;
+        font-size: 14px;
+        color: #364A5E;
+        letter-spacing: 0;
+    }
+
+    .search-proxy input {
+        margin-right: 16px;
+        width: 252px;
+        height: 34px;
+        border: 1px solid #C8D5E0;
+        border-radius: 3px;
+    }
+
+    .search-proxy .submit {
+        width: 80px;
+        height: 34px;
+        background-color: #fff;
+        border: 1px solid #A4B4C4;
+        border-radius: 3px;
+        text-align: center;
+        line-height: 34px;
+        font-family: PingFangHK-Regular;
+        font-size: 14px;
+        color: #364A5E;
+        letter-spacing: 0;
+    }
+/* preview-mask begin */
+    .preview-mask {
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        z-index: 9999;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .5);
+    }
+
+    .preview-mask .phone-wrapper {
+        position: relative;
+        margin: 0 auto;
+        margin-top:100px;
+        padding: 65px 10px;
+        width: 340px;
+        height: 700px;
+        background: url('__TMPL__statics/images/pic_iphone.png') center/cover no-repeat;
+    }
+
+    .preview-mask .phone-box {
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 320px;
+        height: 570px;
+        background: #FFFFFF;
+        border: 2px solid #D1D1D2;
+        border-radius: 3px;
+    }
+
+    .fr {
+        float: right;
+    }
+
+    .fl {
+        float: left;
+    }
+
+    .clearfix {
+        zoom: 1;
+    }
+
+    .clearfix::after,
+    .clearfix::before {
+        clear: both;
+        content: ' ';
+        display: block;
+        line-height: 0;
+        height: 0;
+        visibility: hidden;
+    }
+    .activeDetail .bpic {
+        display: block;
+        width: 100%;
+        height: 149px;
+    }
+
+    .activeDetail .titleBox {
+        position: relative;
+        padding: 0 10px;
+        width: 100%;
+        height: 60px;
+        background-color: #fff;
+        overflow: hidden;
+    }
+
+    .titleBox .text {
+        float: left;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: inline-block;
+        width: 256px;
+        line-height: 20px;
+        vertical-align: middle;
+        font-size: 14px;
+        color: #333;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: box;
+        display: -webkit-box;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
+    .titleBox .answer {
+        float: right;
+    }
+
+    .titleBox .answer em {
+        position: relative;
+        top: 5px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -10px;
+        width: 1px;
+        height: 17px;
+        background-color: #999;
+    }
+
+    .titleBox .answer .phone {
+        position: relative;
+        display: inline-block;
+        top: 12px;
+    }
+
+    .answer .phone .icon {
+        display: block;
+        width: 26px;
+        height: 26px;
+        background: url('__TMPL__statics/images/icon_dianhua@52x52@2x.png') center/cover no-repeat;
+    }
+
+    .answer .phone p {
+        text-align: center;
+        line-height: 12px;
+        font-size: 12px;
+        color: #999;
+    }
+
+    .activeDetail .line1 {
+        width: 100%;
+        height: 5px;
+        background-color: #f3f6f8;
+    }
+
+    .activeDetail .tab {
+        padding: 0 17px;
+        display: flex;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        background-color: #fff;
+        transition: all 0.4s ease;
+    }
+
+    .tab li {
+        flex: 1;
+        font-size: 13px;
+        color: #999;
+        text-align: center;
+    }
+
+    .tab li span {
+        display: inline-block;
+        width: 75px;
+        line-height: 21px;
+        border-radius: 10px;
+    }
+
+    .activeDetail .line2 {
+        width: 100%;
+        height: 1px;
+        background-color: #f3f6f8;
+    }
+
+    .activeDetail .explainBox {
+        background-color: #fff;
+        padding: 0 16px 108px 16px;
+        text-align: center;
+    }
+
+    .explainBox .priceExplain {
+        width: 100%;
+        font-size: 13px;
+    }
+
+    .priceExplain .title {
+        margin: 40px 0;
+        text-align: center;
+        width: 100%;
+        height: 24px;
+        background: url('__TMPL__statics/images/title_01@2x.png') center center no-repeat;
+        background-size: 80px 12px;
+    }
+
+    .priceExplain .child {
+        margin-bottom: 10px;
+        line-height: 13px;
+    }
+
+    .priceExplain .child b {
+        display: inline-block;
+        text-align: left;
+        /* width :460px; */
+    }
+
+    .priceExplain .main {
+        line-height: 13px;
+    }
+
+    .priceExplain span {
+        font-weight: 900;
+        color: #ec8500;
+    }
+
+    .explainBox .details .title {
+        margin: 25px 0;
+        text-align: center;
+        width: 100%;
+        height: 24px;
+        background: url('__TMPL__statics/images/title_02@2x.png') center center no-repeat;
+        background-size: 80px 12px;
+    }
+
+    .explainBox .note {
+        font-size: 13px;
+    }
+
+    .explainBox .note .title {
+        margin: 20px 0;
+        text-align: center;
+        width: 100%;
+        height: 24px;
+        background: url('__TMPL__statics/images/title_03@2x.png') center center no-repeat;
+        background-size: 80px 12px;
+    }
+
+    .explainBox .note span {
+        color: #333;
+    }
+    .explainBox .note .local{
+        margin-top:10px;
+        position:relative;
+    }
+    .note .local .text{
+        display: flex;
+    }
+    .note .local .text b{
+        flex: 0 0 65px;
+        font-weight: 900;
+        color:#E36C09;
+    }
+    .note .local .text span{
+        display:inline-block;
+        width:180px;
+    }
+    .note .local em{
+        position: absolute;
+        right :5px;
+        top :0;
+        margin-right: 10px;
+        width: 1px;
+        height: 20px;
+        background-color: #999;
+    }
+    .note .local .iconBox{
+        position: absolute;
+        right :0;
+        top:-3px;
+        width: 26px;
+        height:26px;
+    }
+    .note .local .iconBox  i{
+        position: absolute;
+        width: 26px;
+        height: 26px;
+        background: url('__TMPL__statics/images/icon_dingwei@52x52@2x.png') center center no-repeat;
+        background-size: 26px 26px;
+    }
+    .explainBox .refund .title {
+        margin: 20px 0;
+        text-align: center;
+        width: 100%;
+        height: 24px;
+        background: url('__TMPL__statics/images/title_04@2x.png') center center no-repeat;
+        background-size: 80px 12px;
+    }
+
+    .explainBox .refund p,.explainBox .reminder p,.explainBox .note p {
+        text-align: left;
+        font-size: 13px;
+        line-height: 20px;
+        color: #333;
+    }
+
+    .explainBox .reminder .title {
+        margin: 20px 0;
+        text-align: center;
+        width: 100%;
+        height: 24px;
+        background: url('__TMPL__statics/images/title_05@2x.png') center center no-repeat;
+        background-size: 80px 12px;
+    }
+    .signUp{
+          display: block;
+          width: 100%;
+          height: 40px;
+          line-height: 40px;
+          text-align: center;
+          background-color: #00bc71;
+          color: #fff;
+          font-size:14px;
+      }
+    .activeDetail .detailsPic{
+        width:100%;
+    }
+    .activeDetail .detailsPic p{
+        width:100%;
+    }
+    .activeDetail .detailsPic p img{
+        display:block;
+        width:100%;
+    }
+    .activeDetail .activityDetailSpecial p {
+        text-align:left;
+        font-size:13px;
+        line-height: 20px;
+        color: #333 !important;
+    }
+    strong{
+        font-weight:900!important;
+        display:inline-block;
+        margin: 5px 0;
+    }
+    .close-preview{
+        position: absolute;
+        left: 50%;
+        margin-left: -68px;
+        bottom: -80px;
+        width: 136px;
+        height: 40px;
+        line-height: 40px;
+        border: 1px solid #FFFFFF;
+        border-radius: 3px;
+        background: transparent;
+        text-align: center;
+        font-family: PingFangHK-Regular;
+        font-size: 15px;
+        color: #FFFFFF;
+        letter-spacing: 0;
+
+    }
+    /* preview-mask end */
+
+    /* 下架 */
+    .bgY {
+        background: #F8C556;
+    }
+
+    /* 取消申请 */
+
+    .bgR {
+        background: #FF5EC2;
+    }
+
+    /* 编辑 */
+
+    .bgG {
+        background: #0ECEAF;
+    }
+
+    /* 下架删除 */
+
+    .col1 {
+        color: #A4B4C4;
+    }
+</style>
+
+<div class="tuan_content">
+    <form method="get" action="<{:U('goods/index')}>">
+    <div class="search-proxy">
+        <span>资源单位：</span>
+        <!--
+        <select name="" id="">
+            <option value="1" style="display:none">请选择要查询的资源单位</option>
+            <option value="1">11111</option>
+            <option value="2">22222</option>
+            <option value="3">33333</option>
+        </select>
+        -->
+        <input type="text" name="shop_name" value="<{$shop_name}>"/>
+        <input type="submit" class="submit tuan_topbt" value="查询" />
+    </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr class="first_tr">
+            <td>活动图片</td>
+            <td class="arrow arrow1">活动名称
+                <span>
+                    <i></i>
+                    <s></s>
+                </span>
+            </td>
+            <td class="arrow arrow2">市场价格
+                <span>
+                    <i></i>
+                    <s></s>
+                </span>
+            </td>
+            <td class="arrow arrow3">活动起止时间
+                <span>
+                    <i></i>
+                    <s></s>
+                </span>
+            </td>
+            <td class="arrow arrow4">报名截止时间
+                <span>
+                    <i></i>
+                    <s></s>
+                </span>
+            </td>
+            <td>已报名人数</td>
+            <td>还需报名人数</td>
+            <td>操作</td>
+        </tr>
+        <script>
+            $(function () {
+                arrow('arrow1')
+                arrow('arrow2')
+                arrow('arrow3')
+                arrow('arrow4')
+                function arrow(name) {
+                    var i = 0;
+                    $('.' + name + '').on('click', function () {
+                        i++;
+                        if (i % 2) {
+                            this.childNodes[1].className = 'ascending';
+                        } else {
+                            this.childNodes[1].className = 'descending';
+                        }
+                    })
+                }
+            })
+        </script>
+        <foreach name="list" item="var">
+        <tr>
+            <td style="height: 80px;">
+                <img src="__ROOT__/attachs/<{$var.photo}>" style="width: 80px;margin: 0px auto;" />
+            </td>
+            <td><{$var.title}></td>
+            <td><{$var.mall_price}></td>
+            <td><{$var.start_time|date='Y-m-d',###}>~<{$var.end_time|date='Y-m-d',###}></td>
+            <td><{$var.finaly_time|date='Y-m-d',###}></td>
+            <td><a href="<{:U('goods/number')}>" style="text-decoration: underline;color: #1C99FA;"><{$var.count}></a></td>
+            <td><{$var.surplus_count}></td>
+            <td>
+                <span class="operation operation2" onclick="showpreview(<{$var.index}>)">预览</span>
+            </td>
+        </tr>
+
+        <div class="preview-mask">
+            <div class="phone-wrapper">
+                <div class="phone-box">
+                    <div class="contentBox activeDetail">
+                        <img class="bpic" src='__ROOT__/attachs/<{$var.photo}>' />
+                        <div class="titleBox">
+                            <div class="text fl"><{$var.title}></div>
+                            <div class="answer fr">
+                                <em></em>
+                                <div class="phone">
+                                    <i class="icon"></i>
+                                    <p>咨询</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line1"></div>
+                        <ul class="tab" ref="tab">
+                            <li>
+                                <span>价格说明</span>
+                            </li>
+                            <li>
+                                <span>详情介绍</span>
+                            </li>
+                            <li>
+                                <span>报名须知</span>
+                            </li>
+                        </ul>
+                        <div class="line2"></div>
+                        <div class="explainBox">
+                            <div class="priceExplain">
+                                <div class="title"></div>
+                                <div class="child clearfix">
+                                    <b class="fl"><{$var.title}></b>
+                                    <span class="fr">￥<{$var.price}></span>
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="title"></div>
+                                <div class="detailsPic"><{$var.flow}></div>
+                            </div>
+                            <div class="note">
+                                <div class="title"></div>
+                                <div class="activityDetailSpecial"><{$var.details}></div>
+                                <div class="local">
+                                    <div class="text">
+                                        <b>活动地址：</b>
+                                        <span><{$var.address_details}></span>
+                                    </div>
+                                    <em class="fr"></em>
+                                    <div class="iconBox fr">
+                                        <i></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="refund">
+                                <div class="title"></div>
+                                <p><{$var.refund_detail}></p>
+                            </div>
+                            <div class="reminder">
+                                <div class="title"></div>
+                                <p><{$var.notice}></p>
+                                <!-- <p>2.不包含商店、餐厅和其他自费项目；不再与其他优惠同享。</p> -->
+                            </div>
+                        </div>
+                        <a href="javascript:;" class="signUp">立即报名</a>
+                        <!-- <a class="signUp" :href="linkUrl+'/h5/index/addActive/shop_id/'+msg.shop_id+'/goods_id/'+msg.goods_id+'/coupon_id/-1'" v-if="msg.is_subscribe==1">立即报名</a> -->
+                    </div>
+                </div>
+                <div class="close-preview" onclick="closepreview(<{$var.index}>)">
+                    关闭预览
+                </div>
+            </div>
+        </div>
+        </foreach>
+        <script>
+            function showpreview(id) {
+                $($('.preview-mask')[id]).fadeIn(400)
+            }
+            function closepreview(id){
+                $($('.preview-mask')[id]).fadeOut(400)
+            }
+        </script>
+        <!-- <foreach name="list" item="var">
+            <tr>
+                <td style="height: 80px;"><img src="__ROOT__/attachs/<{$var.photo}>" style="width: 80px;margin: 0px auto;" /></td>
+                <td><{$var.title}></td>
+                <td><{$var.mall_price}></td>
+                <td><{$var.start_time|date='Y-m-d H:i:s',###}>-<{$var.finaly_time|date='Y-m-d H:i:s',###}></td>
+                <td><{$var.end_time|date='Y-m-d H:i:s',###}></td>
+                <td><{$var.count}></td>
+                <td>2</td>
+                <td><span class="operation operation2">预览</span></td>
+                <!-- <td>
+                <a class="radius3 sy_c1an" href="<{:U('goods/edit',array('goods_id'=>$var['goods_id']))}>">编辑</a>
+            </td> -->
+        <!-- </tr> -->
+        <!-- </foreach> -->
+    </table>
+    <{$page}>
+</div>
+
+<include file='public:footer' />

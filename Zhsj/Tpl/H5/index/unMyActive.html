@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta name="screen-orientation"content="portrait">
+    <meta name="x5-orientation"content="portrait">
+    <meta name="x5-page-mode" content="app">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的活动</title>
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/common.css">
+
+    <script src="__PUBLIC__/H5/js/jquery-1.8.3.min.js"></script>
+    <script src="__PUBLIC__/H5/js/vue2.js"></script>
+    <script src="__PUBLIC__/H5/js/jsweixin-1.2.0.js"></script>
+    <style>
+        div {
+            text-align: center;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        p {
+            margin-top: 8px;
+            font-size: 16px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 3px 10px;
+            font-size: 14px;
+            color: #00bc71;
+            border: 1px solid #00bc71;
+            border-radius: 15px;;
+        }
+
+        img {
+            height: 60px;
+            width: 60px;
+        }
+    </style>
+</head>
+
+<body>
+<script>
+    var _mtac = {};
+    (function() {
+        var mta = document.createElement("script");
+        mta.src = "http://pingjs.qq.com/h5/stats.js?v2.0.4";
+        mta.setAttribute("name", "MTAH5");
+        mta.setAttribute("sid", "500546406");
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(mta, s);
+    })();
+</script>
+<div>
+    <img src="__PUBLIC__/H5/image/icon_chaping70x70@3x.png" alt="">
+    <p>您还没有参加活动</p>
+    <a href="/frontend/index.html#/?user_id=<{$user_id}>">快快参与</a>
+</div>
+</body>
+
+</html>

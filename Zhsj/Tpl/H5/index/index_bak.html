@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="apple-mobile-web-app-capable" content="no" />
+    <title>贝拉小镇10.1开园预售，三人同行，爸妈免单！</title>
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/indexBase.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/index.css">
+</head>
+
+<body>
+<div id="contentBox" v-cloak>
+        <div class="mask"  @touchmove="close">
+            <div class="outer">
+                <div class="showCode">
+                    <h3 class="explain">10.1国庆特惠活动已结束！</h3>
+                    <p class="first">如有需求请直接至现场购票！</p>
+                    <p class="first">购票地址：长沙市望城区光明村贝拉小镇</p>
+                    <p>学生综合实践平台致力于为大家带来更多好玩有教育意义的活动，敬请期待！</p>
+                    <p>温馨提示：优惠券后续可以继续在平台使用！</p>
+                    <p>祝大家出行平安，假期愉快！</p>
+                </div>
+            </div>
+        </div>
+        <div class="fix">
+            <!-- 未关注公众号 -->
+            <if condition="$wx_userinfo['is_subscribe'] eq 0">
+                <!--<div id="apply">点击关注微信公众号报名</div>-->
+                <else/>
+                <!--<a href="<{:U('H5/Index/addActive')}>">立即报名</a>-->
+            </if>
+            <!-- 已关注公众号 -->
+        </div>
+		<div class="normalPic">
+			<img src="__PUBLIC__/H5/image/pic_01@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_02@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_03@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_04@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_05@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_06@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_07@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_08@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_09@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_10@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_11@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_12@2x.png" alt="">
+	        <img src="__PUBLIC__/H5/image/pic_13@2x.png" alt="">	
+    	</div>
+		<img src="__PUBLIC__/H5/image/pic_14@2x.png" alt="" class="sp1">
+    <div class="last">
+        <div id="container"></div>
+        <lbs-map width="100%" style="height:100%" center=",">
+            <lbs-poi name="贝拉小镇" location="," addr="贝拉小镇贝拉小镇"></lbs-poi>
+        </lbs-map>
+        <div class="bottom">
+            <p>地址：湖南省长沙市望城区白箬铺镇光明村</p>
+            <p>电话：17700796196&nbsp;&nbsp;&nbsp;17700796769</p>
+        </div>
+    </div>
+    <div class="pop">
+        <div class="mask">
+            <div class="share">
+                <h3>关注微信公众号进行报名</h3>
+                <img id="erwei" src="__PUBLIC__/H5/image/qrcode110x110.png" alt="">
+
+            </div>
+            <div class="cancel">取消</div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="__PUBLIC__/H5/js/vue2.js"></script>
+<script src="__PUBLIC__/H5/js/jquery-1.8.3.min.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/H5/js/jsweixin-1.2.0.js"></script>
+<script>
+    wx.config({
+        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: "<{$js_config['appId']}>", // 必填，公众号的唯一标识
+        timestamp: "<{$js_config['timestamp']}>", // 必填，生成签名的时间戳
+        nonceStr: "<{$js_config['nonceStr']}>", // 必填，生成签名的随机串
+        signature: "<{$js_config['signature']}>",// 必填，签名，见附录1
+        jsApiList: ['onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    wx.ready(function(){
+        // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+        wx.onMenuShareAppMessage({
+            title: "<{$wx_share['title']}>", // 分享标题
+            desc: "<{$wx_share['desc']}>", // 分享描述
+            link: "<{$wx_share['link']}>", // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: "<{$wx_share['imgurl']}>", // 分享图标
+            type: '', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+    });
+
+    wx.error(function(res){
+        // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+    });
+</script>
+
+<script src="http://map.qq.com/api/js?v=2.exp"></script>
+<script src="http://api.map.baidu.com/components?ak=C9613fa45f450daa331d85184c920119&v=1.0"></script>
+<script>
+    var app = new Vue({
+        el: '#contentBox',
+        data: {
+
+        },
+        created() {
+        },
+        mounted() {
+            var timerr = setInterval(function () {
+                if ($('.smnoprint').length) {
+                    $('.smnoprint').hide()
+                    $('.info-title').hide()
+                    $('.info-content').hide()
+                    $("[onpositionupdate='return;']").hide()
+                    $("[onresize='return;']").hide()
+                    setTimeout(function () {
+                        clearInterval(timerr)
+                    }, 1000)
+                }
+            }, 10)
+            var geocoder, map, marker = null;
+
+            init()
+            this.$refs.head.style.height = document.documentElement.clientHeight + 'px';
+            this.pop();
+        },
+        methods: {
+            pop() {
+                $('.pop').on('touchmove', function (e) {
+                    e.preventDefault()
+                })
+                $('#apply').on('click', function () {
+                    $('.pop').show()
+                })
+                $('.cancel').on('click', function () {
+                    $('.pop').hide()
+                })
+            },
+            close(e){
+                e.preventDefault();
+            }
+        }
+
+    });
+    function init() {
+        var center = new qq.maps.LatLng(39.916527, 116.397128);
+        map = new qq.maps.Map(document.getElementById('container'), {
+            center: center,
+            zoom: 14
+        });
+        geocoder = new qq.maps.Geocoder({
+            complete: function (result) {
+                map.setCenter(result.detail.location);
+                var marker = new qq.maps.Marker({
+                    map: map,
+                    position: result.detail.location
+                });
+            }
+        });
+        var address = "中国,长沙，贝拉小镇";
+        geocoder.getLocation(address);
+    }
+
+</script>
+
+</html>

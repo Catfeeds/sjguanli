@@ -1,0 +1,3 @@
+<?php
+//000000086400a:7:{i:1;a:2:{s:7:"role_id";s:1:"1";s:9:"role_name";s:15:"系统管理员";}i:2;a:2:{s:7:"role_id";s:1:"2";s:9:"role_name";s:12:"分站管理";}i:3;a:2:{s:7:"role_id";s:1:"3";s:9:"role_name";s:9:"财务部";}i:4;a:2:{s:7:"role_id";s:1:"4";s:9:"role_name";s:9:"运营部";}i:5;a:2:{s:7:"role_id";s:1:"5";s:9:"role_name";s:9:"市场部";}i:6;a:2:{s:7:"role_id";s:1:"6";s:9:"role_name";s:9:"客服部";}i:7;a:2:{s:7:"role_id";s:1:"7";s:9:"role_name";s:9:"技术部";}}
+?>

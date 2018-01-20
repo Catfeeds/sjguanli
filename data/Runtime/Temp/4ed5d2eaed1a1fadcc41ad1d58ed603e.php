@@ -1,0 +1,3 @@
+<?php
+//000000086400a:2:{i:8;a:9:{s:7:"city_id";s:1:"8";s:4:"name";s:6:"长沙";s:6:"pinyin";s:8:"changsha";s:7:"is_open";s:1:"1";s:3:"lng";s:8:"112.9455";s:3:"lat";s:6:"28.235";s:7:"orderby";s:2:"99";s:12:"first_letter";s:1:"C";s:14:"common_city_id";s:3:"275";}i:9;a:9:{s:7:"city_id";s:1:"9";s:4:"name";s:6:"耒阳";s:6:"pinyin";s:7:"leiyang";s:7:"is_open";s:1:"1";s:3:"lng";N;s:3:"lat";N;s:7:"orderby";s:3:"100";s:12:"first_letter";N;s:14:"common_city_id";s:4:"2942";}}
+?>

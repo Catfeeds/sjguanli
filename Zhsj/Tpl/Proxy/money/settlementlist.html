@@ -1,0 +1,410 @@
+<include file='public:header' />
+<link rel="stylesheet" href="../statics/css/animate.css">
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    /* table,form{
+        min-width: 1110px;
+    } */
+    .tuan_content {
+        padding: 30px 1%;
+        margin: 0 auto;
+    }
+
+    .tuanfabu_tabli.on {
+        border-left: none;
+        border-top: none;
+        background-color: #ffffff;
+        background: #1D99F9;
+        border-radius: 3px;
+        height: 24px;
+    }
+    .tuan_topser_l select {
+        margin-right: 16px!important;
+    }
+    .tuan_topbt {
+        margin-left: 0!important;
+    }
+    .tuanfabu_tabli.on a {
+        color: #fff;
+    }
+
+    .tuanfabu_tab {
+        padding-bottom: 20px;
+        margin-bottom: 24px;
+    }
+
+    .tuanfabu_tabli {
+        padding: 0 8px;
+        height: 24px;
+        border: none;
+        border-bottom: none 0;
+        background-color: #fff;
+        float: left;
+        margin: 0;
+        margin-right: 12px;
+    }
+    .tuanfabu_tabli a {
+        line-height: 24px;
+        font-size: 14px;
+    }
+    .tuan_top_t {
+        border-bottom: none;
+    }
+
+    .tuan_topser_l {
+        border-left: none;
+    } */
+    /* .tuan_top_t {
+        position: relative;
+        transform: translate(-15px);
+        padding: 0;
+    } */
+    /* .wave {
+        font-size: 20px;
+        margin: 0 5px;
+    } */
+    /* .tuan_table tr {
+        border: none;
+        border-bottom: solid 1px #EAF0F6;
+        border-radius: 4px;
+        overflow: hidden;
+    } */
+
+    .mar {
+        margin: 0 28px 0 8px;
+    }
+
+    .act {
+        width: 300px!important;
+    }
+    /* .tuan_topser {
+        border-radius: 3px;
+    }
+
+    .tuan_topbt {
+        border: 1px solid #A4B4C4;
+        background-color: #fff;
+        color: #364A5E;
+        margin-left: 30px!important;
+        border-radius: 3px;
+    } */
+    /* .tuan_table tr:first-child td{
+        padding: 17px 0;
+    } */
+
+    .tuan_table tr td input {
+        outline: none;
+        border: 1px solid rgb(17, 139, 240);
+        background: red;
+    }
+    /* .tuan_table {
+        border: none;
+    }
+
+    .tuan_table td {
+        padding: 20px 0;
+    }
+
+    .tuan_table {
+        text-align: left;
+    } */
+    .tuanfabu_tab {
+        height: 53px;
+    }
+    .tuan_table tr td:nth-child(1) {
+        padding-left: 20px!important;
+        /* width: 50px; */
+    }
+
+    .tuan_table tr td {
+        padding-left: 30px!important;
+        padding-right: 14px!important;
+    }
+
+    .tuan_table tr td:nth-child(2) {
+        /* padding-left: 10px!important; */
+    }
+
+    .tuan_table tr td:nth-child(2)::before {
+        /* display: none; */
+    }
+
+    .tuan_table tr td:nth-child(3) {
+        /* padding-right: 40px!important; */
+        /* width: 130px; */
+    }
+
+    .tuan_table tr td:nth-child(4) {
+        /* width: 130px; */
+    }
+
+    .tuan_table tr td:nth-child(5) {
+        padding-right: 30px!important;
+    }
+
+    .tuan_table tr td:nth-child(6) {
+        /* width: 130px; */
+    }
+
+    .tuan_table tr td:nth-child(7) {
+        /* width: 180px; */
+    }
+
+    .tuan_table tr td:nth-child(8) {
+        /* width: 110px; */
+    }
+
+    input[type='text'] {
+        height: 34px;
+        margin-bottom: 16px;
+    }
+
+    input[type='checkbox'] {
+        position: relative;
+        transform: translateY(2px);
+    }
+
+    .tuan_top {
+        margin-bottom: 24px;
+    }
+
+    .tuan_topser_l select {
+        width: 180px;
+        height: 34px;
+        margin: 0 28px 0 10px;
+        border: 1px solid #dbdbdb;
+        /* color: #A4B4C4 ; */
+        color: #C8D5E0;
+        border-radius: 4px;
+        padding-left: 5px;
+    }
+
+    .tuan_topser_l select option {
+        height: 34px;
+        color: #304B5D;
+    }
+
+    table,
+    form {
+        min-width: 1200px;
+    }
+    .look_reason {
+        position: relative;
+        width: 480px;
+        border-radius: 5px;
+        background: #fff;
+        position: absolute;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: all .5s;
+        z-index: 1001;
+        border: 4px solid rgba(0,0,0,.1);
+        font-size: 14px;
+    }
+    .look_reason .lr_header {
+        background: #f3f3f3;
+        height: 31px;
+        line-height: 31px;
+        color: #666;
+        font-family: "Microsoft YaHei";
+        padding: 0 10px;
+    }
+    .lr_content {
+        font-size: 20px;
+        width: 480px;
+        display: flex;
+        padding: 0 20px 10px;
+    }
+    .lr_content p {
+        font-size: 14px;
+        /*height: 30px;*/
+        line-height: 20px;
+        margin-top: 10px
+    }
+    .lr_content div:first-child {
+        width: 70px;
+    }
+    .lr_content div:last-child {
+        width: 370px;
+        margin-left: 20px;
+    }
+    .look_reason a {
+        display: block;
+        width: 13px;
+        height: 13px;
+        position: absolute;
+        top: 9px;
+        right: 10px;
+        background: url('__TMPL__statics/images/dialog.png');
+    }
+</style>
+<!-- <div class="sjgl_lead">
+    <ul>
+        <li>
+            <a href="#">商家管理</a> >
+            <a href="">商城</a> >
+            <a>卖出商品</a>
+        </li>
+    </ul>
+</div> -->
+<div class="tuan_content" style="min-height: 500px">
+    <form method="get" action="<{:U('order/index')}>">
+        <div class="tuanfabu_tab">
+            <ul>
+                <li class="tuanfabu_tabli on"">
+                    <a href="">全部結算</a>
+                </li>
+                <li class="tuanfabu_tabli">
+                    <a href="">待审核</a>
+                </li>
+                <li class="tuanfabu_tabli">
+                    <a href="">待结算</a>
+                </li>
+                <li class="tuanfabu_tabli">
+                    <a href="">审核不通过</a>
+                </li>
+                <li class="tuanfabu_tabli">
+                    <a href="">已结算</a>
+                </li>
+            </ul>
+        </div>
+        <div class="radius5 tuan_top">
+            <div class="tuan_top_t">
+                <div class="left tuan_topser_l">订单状态：
+                    <!-- <input type="text" placeholder="请输入活动名称或关键词" name="title" value="<{$title}>" class="radius3 tuan_topser mar act" style="width:180px"/> -->
+                    <select class="select" name="goods_id">
+                        <option value="-1">请选择要查询的订单状态</option>
+                        <foreach name="arrs" item="vs">
+                            <option value="<{$vs.goods_id}>" <eq name="goods_id" value="$vs.goods_id">selected="selected"</eq>>
+                            <{$vs.title}>
+                            </option>
+                        </foreach>
+                    </select>
+                    <script>
+                        $(function () {
+                            console.log($('.select').val(),1)
+                            if($('.select').val()!='-1'){
+                                $('.select').css('color', '#304B5D')
+                            }
+                            $('.select').on('change', function () {
+                                $('.select').css('color', '#304B5D')
+                            })
+                        })
+                    </script>
+                    <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="查询" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <table class="tuan_table" border="0" width="100%" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr class="first_tr">
+            <!-- <td>
+                <input type="checkbox" class="checkAll" rel="order_id" />
+            </td> -->
+            <td class="arrow arrow1">结算时间
+                <span>
+                        <i></i>
+                        <s></s>
+                    </span>
+            </td>
+            <td>
+                结算订单数</td>
+            <td class="arrow arrow1">
+                结算金额
+                <span>
+                        <i></i>
+                        <s></s>
+                    </span>
+            </td>
+            <td>
+                订单状态</td>
+            <td>
+                操作</td>
+            <!-- <td>操作</td> -->
+        </tr>
+        <script>
+            $(function () {
+                arrow('arrow1')
+                arrow('arrow2')
+
+                function arrow(name) {
+                    var i = 0;
+                    $('.' + name + '').on('click', function () {
+                        i++;
+                        console.log(this.childNodes)
+                        if (i % 2) {
+                            this.childNodes[1].className = 'ascending';
+                        } else {
+                            this.childNodes[1].className = 'descending';
+                        }
+                    })
+                }
+            })
+        </script>
+
+            <tr>
+                <!-- <td>
+                    <input class="child_order_id" type="checkbox" name="order_id[]" value="<{$var.order_id}>" />
+                </td> -->
+                <td>
+                    2017-10-01 16:34:08
+                </td>
+                <td>
+                    260
+                </td>
+                <td>
+                    1280.00
+                </td>
+                <td>
+                    待审核
+                </td>
+                <td>
+                   <p><a href="<{:U('money/checksettlement')}>" style="color: #50A6F7">查看结算单</a><a class="reason" href="javascript:void(0)" style="margin-left: 16px; color: #FF788D">查看原因</a></p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <script>
+        $('.reason').on('click', function () {
+            $('.look_reason').css('opacity', '1');
+        })
+    </script>
+    <{$page}>
+    <!--查看原因弹窗-->
+    <div class="look_reason">
+        <div class="lr_header">申请结算</div>
+        <div class="lr_content">
+            <div>
+                <p>时间</p>
+                <p>订单数</p>
+                <p>结算金额</p>
+                <p>状态</p>
+                <p>原因</p>
+            </div>
+            <div>
+                <p>2017-06-24 09:58:59</p>
+                <p>99</p>
+                <p>999.99</p>
+                <p>审核不通过</p>
+                <p>涉嫌涉嫌违规涉嫌违规涉嫌违规速度快浪费时间独立开发违规涉嫌违规涉嫌违规速度快浪费时间独立开发</p>
+            </div>
+        </div>
+        <a href="javascript: void(0)" class="close_reason">
+            
+        </a>
+        <script type="text/javascript">
+            $('.close_reason').on('click', function() {
+                $('.look_reason').css('opacity', '0');
+            })
+        </script>
+    </div>
+</div>
+
+<include file='public:footer' />

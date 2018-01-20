@@ -1,0 +1,155 @@
+
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">交易</li>
+        <li class="li2 li3">退款订单</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里只是明细查询的地方，如果发货需要在等待捡货那边进行操作！订单退货暂时只支持线下退货，线上可以在资金管理添加记录；等待发货的到付在这里状态筛选不出来，只能在到付等待捡货筛选！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none; padding-bottom: 0px;">
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('order/refundindex')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <span>订单编号</span>
+                                <input type="text" name="order_id" value="<{$order_id}>" class="inptText"/>
+                            </label>
+                            <label>
+                                <span>活动名称</span>
+                                <input type="text" name="title" value="<{$title}>" class="inptText" />
+                            </label>
+                            <label>
+                                <span>机构名称</span>
+                                <input type="text" name="shop_name" value="<{$shop_name}>" class="inptText" />
+                            </label>
+                            <label>
+                                <span>用户名称</span>
+                                <input type="text" name="truename" value="<{$truename}>" class="inptText" />
+                            </label>
+                            <input type="submit" value="   搜索"  class="inptButton" />
+                        </div>
+                    </div>
+                </form>
+                <!--<a href="javascript:void(0);" class="searchG">高级搜索</a>-->
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('order/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                            <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text w150" />
+                            <a style="margin-right: 5px;" mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                        </label>
+                        <label>
+                            <span>商家</span>
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                            <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text w150" />
+                            <a style="margin-right: 5px;"  href="<{:U('shop/select')}>" mini='select' w='800' h='600' class="sumit">选择商家</a>
+                        </label>
+                        <label>
+                            <span>状态</span>
+                            <select name="st" class="select w80">
+                                <option value="999">请选择</option>
+                                <foreach name="types" key="key" item="item">
+                                    <option <eq name="st" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>
+                                </foreach>
+
+                            </select>
+                        </label>
+                        <label>
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="<{$bg_date|default=''}>"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                        </label>
+                        <label>
+                            <span>订单编号</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText w100" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+                <div class="clear"></div>
+            </div>
+        </form>
+        <div class="tableBox">
+            <form  target="baocms_frm" method="post">
+                <div class="tableBox">
+                    <table class="tuan_table" border="0" width="100%" cellspacing="0" cellpadding="0">
+                        <tr class="first_tr">
+                            <td class="w50"><input type="checkbox" class="checkAll" rel="user_id" /></td>
+                            <td>订单ID</td>
+                            <td>活动名称</td>
+                            <td>用户姓名</td>
+                            <td>退款价格</td>
+                            <td>状态</td>
+                            <td>退款状态</td>
+                            <td>退款失败原因</td>
+                            <td>商家名称</td>
+                            <td>申请退款时间</td>
+                            <td>操作</td>
+                        </tr>
+                        <foreach name="info" item="var">
+                            <tr>
+                                <td><input class="child_user_id" type="checkbox" name="teacher_id[]" value="<{$var.order_id}>" /></td>
+                                <td><{$var.order_id}></td>
+                                <td><{$var.title}></td>
+                                <td><{$var.truename}></td>
+                                <td><{$var.trans_amount}></td>
+                                <td>
+                                    <if condition="$var.status eq '10'">待处理</if>
+                                    <if condition="$var.status eq '12'">退款中</if>
+                                    <if condition="$var.status eq '15'">退款完成</if>
+                                </td>
+                                <td><{$var.return_code}></td>
+                                <td>
+                                    <if condition="$var.return_code eq 'FAIL'"><{$var.return_msg}></if>
+                                </td>
+                                <td><{$var.shop_name}></td>
+                                <td><{$var.apply_refund_time}></td>
+                                <td>
+                                    <if condition="$var.return_code neq 'SUCCESS'"><a onclick="refund('<{$var.order_id}>')" class="remberBtn">退款</a></if>
+                                    <!--<a onclick="deleteTeacher(2,<{$var.teacher_id}>)" class="remberBtn ">拒绝退款</a>-->
+                                </td>
+                            </tr>
+                        </foreach>
+                    </table>
+                    <{$page}>
+                </div>
+                <!--<div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">-->
+                    <!--<div class="left">-->
+                        <!--<a class="c2" onclick="deleteTeacher(1,1)">批量删除</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </form>
+            <script>
+                function refund(id){
+                    var order_id = id;
+                    if(confirm("是否确定退款？")){
+                        $.ajax({
+                            type : "POST",  //提交方式
+                            url : '<{:U("order/agreeRefund")}>',//路径
+                            data : {"order_id" : order_id},//数据，这里使用的是Json格式进行传输
+                            success : function(result) {//返回数据根据结果进行相应的处理
+                                alert(result.msg);
+                                window.location.reload();
+                            }
+                        });
+                    }
+                }
+            </script>
+        </div>
+        <include  file='public:footer'/>       

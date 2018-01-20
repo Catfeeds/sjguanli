@@ -1,0 +1,125 @@
+body {
+    background: #f4f5f9;
+}
+
+.head {
+    display: block;
+    height: 30px;
+    background: #00bc71;
+    padding: 0 10px;
+    line-height: 28px;
+}
+
+.head s {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: url('../image/icon_warnning12x12@3x.png') no-repeat center/cover;
+    vertical-align: middle;
+    /* margin-top: 3px; */
+}
+
+.head span {
+    color: white;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.head i {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background: url('../image/icon_more9x9@3x.png') no-repeat center/cover;
+    margin-top: 10px;
+}
+
+.msg {
+    padding-top: 20px;
+    text-align: center;
+    background: white;
+    padding-bottom: 40px;
+}
+
+.msg img {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #999;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.msg p {
+    font-size: 14px;
+    color: #333;
+}
+
+.msg div span {
+    color: #999;
+}
+
+.msg div {
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.from {
+    height: 31px;
+    font-size: 12px;
+    line-height: 31px;
+    padding-left: 10px;
+    color: #999;
+}
+
+.list {
+    background: white;
+    padding: 0 10px;
+}
+
+.list ul li {
+    height: 60px;
+}
+
+.list ul li div {
+    font-size: 12px;
+    padding-top: 13px;
+}
+
+.list ul li div p {
+    color: #333;
+    margin-bottom: 2px;
+}
+
+.list ul li div span {
+    color: #999;
+}
+
+.list ul li img {
+    float: left;
+    height: 40px;
+    width: 40px;
+    margin-top: 10px;
+    border-radius: 50%;
+    border: 1px solid #999;
+}
+
+.list ul li .name {
+    display: inline-block;
+    margin-left: 9px;
+}
+
+.list ul li .fr {
+    text-align: right;
+}
+.none{
+    text-align: center;
+    margin-top: 70px;
+}
+.none img{
+    width: 60px;
+    height: 60px;
+}
+.none p{
+    margin-top: 8px;
+    color: #999;
+    font-size: 14px;
+}

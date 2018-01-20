@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta name="screen-orientation"content="portrait">
+    <meta name="x5-orientation"content="portrait">
+    <meta name="x5-page-mode" content="app">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的活动</title>
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/active.css">
+    <script src="__PUBLIC__/H5/js/jquery-1.8.3.min.js"></script>
+    <script src="__PUBLIC__/H5/js/vue2.js"></script>
+    <script src="__PUBLIC__/H5/js/jsweixin-1.2.0.js"></script>
+</head>
+<body>
+<script>
+    var _mtac = {};
+    (function() {
+        var mta = document.createElement("script");
+        mta.src = "http://pingjs.qq.com/h5/stats.js?v2.0.4";
+        mta.setAttribute("name", "MTAH5");
+        mta.setAttribute("sid", "500546406");
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(mta, s);
+    })();
+</script>
+<div id="contentBox" v-cloak>
+    <volist name="myactive" id="v">
+    <div class="activeBox">
+        <div class="num">
+            <div class="left fl">订单编号：<{$v.order_id}></div>
+            <div class="right fr orderNum" :class="{'status1':<{$v['status']}><=2,'status3':<{$v[ 'status']}>==3,'status10':<{$v[ 'status']}>==10,'status15':<{$v[ 'status']}>==15}"><{$ss[$v['status']]}></div>
+        </div>
+        <div class="picBox">
+            <img class="pic" src="__PUBLIC__/H5/image/pic_small73x57@3x.png" alt="">
+            <div class="txt">
+                <div class="title"><{$v.intro}></div>
+                <div class="flex">
+                    <span class="price fl"> ￥<{$v.total_price}></span>
+                    <span class="refund fr" @click="refund(<{$v.index}>)" v-show="<{$v['status']}><=2">
+                        <i></i><i></i><i></i>
+                        <a href="/frontend/index.html#/refund?order_id=<{$v.order_id}>" class="pop" ref="pop">
+                            <s></s>
+                            申请退款
+                        </a>
+                    </span>
+                    <!--<a href="<{:U('H5/Index/refund')}>" class="pop" ref="pop">-->
+                </div>
+            </div>
+        </div>
+        <div class="msk"></div>
+        <div class="msgBox">
+            <div class="num common">
+                <div class="left fl">活动券码</div>
+                <div class="right fr pcode status1"><?php if(!empty($v['act_code'])){ echo $v['act_code']; }else{ echo '正在出票中...';} ?></div>
+                <!-- <div class="right fr" v-else>正在出票中...</div> -->
+            </div>
+            <div class="time common">
+                <div class="left fl">使用时间</div>
+                <div class="right fr"><{$v.yw_time}></div>
+            </div>
+            <div class="address common">
+                <div class="left fl">基地地址</div>
+                <div class="right fr">长沙市望城区白若铺镇光明村</div>
+            </div>
+            <div class="code">
+                <div class="left fl">点击查看二维码</div>
+                <div class="right fr" @click="clk" data-order_id="<{$v.order_id}>" data-act_code="<{$v.act_code}>"></div>
+            </div>
+        </div>
+    </div>
+    </volist>
+    <div class="mask">
+        <div class="outer">
+            <div class="showCode">
+                <!-- <div class="code"></div> -->
+
+                <img src="__PUBLIC__/H5/image/loading1.gif" alt="" id="show_img">
+
+                <div class="txt"><span v-show="act_code!='正在出票中，请稍后查看...'">活动券码</span>&nbsp;{{act_code}}</div>
+                <div class="close" @click="maskOut"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var app =new Vue({
+        el:'#contentBox',
+        data:{
+            showMask:false,
+            act_code: '',
+            order_status: 1
+        },
+        mounted(){
+            $('.msk').click(function(e){
+                console.log(11111111)
+                // e.preventDefault()
+                $('.txt a').fadeOut(200)
+                $('.msk').hide()
+            })
+            
+        },
+        methods:{
+            clk(e){
+                var e = e.target;
+                var that = this;
+                var order_id = $(e).data('order_id');
+                $.post("<{:U('/H5/Index/getMyCode')}>",{
+                    order_id : order_id
+                },function(ret){
+                    if(ret.code == 1){
+                        //that.act_code = $(e).data('act_code')||'正在出票中...';
+                        that.act_code = ret.act_code||'正在出票中，请稍后查看...';
+                        if(ret.act_code){
+                            $(e).parents('.msgBox')[0].querySelector('.pcode').innerHTML = ret.act_code;
+                            if($(e).parents('.activeBox')[0].querySelector('.orderNum').innerHTML == '已付款待出票'){
+                                $(e).parents('.activeBox')[0].querySelector('.orderNum').innerHTML = '待使用';
+                            }
+                        }
+                        var qrcode = ret.img|| '__PUBLIC__/H5/image/loading1.gif';
+                        $('#show_img').attr('src', qrcode);
+                        $('.mask').fadeIn(200);
+                    }else{
+
+                    }
+                });
+            },
+             refund(i) {
+                    // e.stopPropagation()
+                    $('.pop').fadeOut(200)
+                    $($('.pop')[i]).fadeIn(200)
+                    $('.msk').show();
+                },
+                maskOut(){
+                    $('.mask').fadeOut(200);
+                }
+        }
+    })
+</script>
+</body>
+</html>

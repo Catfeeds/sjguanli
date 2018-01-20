@@ -1,0 +1,145 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<style>
+    .contain {
+        padding: 0 32px;
+    }
+    .activity_info {
+        padding: 26px 0;
+        font-family: PingFangHK-Regular;
+        font-size: 14px;
+        color: #364A5E;
+        letter-spacing: 0;
+        border-bottom: 1px solid #EAF0F6;
+        position: relative;
+    }
+    .activity_info .activity_name {
+        line-height: 20px;
+    }
+    .activity_info .order_info .order_num {
+        font-size: 20px;
+        color: #ff788d;
+        letter-spacing: 0;
+        line-height: 20px;
+    }
+    .activity_info .export_data {
+        position: absolute;
+        top: 19px;
+        right: 0;
+        width: 112px;
+        height: 34px;
+        border-radius: 3px;
+        background: #0ECEAF;
+        color: #ffffff;
+        text-align: center;
+        line-height: 34px;
+    }
+    .search {
+        padding: 24px 0;
+        font-family: PingFangHK-Regular;
+        font-size: 14px;
+        color: #364A5E;
+        letter-spacing: 0;
+    }
+    .search .order_sub {
+        width: 80px;
+        margin-left: 16px;
+        box-sizing: border-box;
+    }
+    .export_data .pic{
+        margin-right: 6px;
+    }
+</style>
+<div class="contain">
+    <div class="activity_info">
+        <p class="activity_name">活动名称: <span>户外小小魔术师</span></p>
+        <div class="export_data"><img src="__TMPL__statics/images/icon_download12x12.png" alt="" class="pic">导出数据</div>
+    </div>
+    <div class="search">
+        订单编号 : <input type="text" class="radius3 tuan_topser mar" style="width:180px;margin-left: 8px;margin-right: 32px" />
+        选择时间 : <input type="text" class="radius3 tuan_topser" name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" style="width:180px;margin-left:8px" />
+        <span class="wave">~</span>
+        <input type="text" class="radius3 tuan_topser" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" style="width:180px" />
+        <input type="submit" class="order_sub radius3 sjgl_an tuan_topbt" value="查询" />
+    </div>
+    <table class="tuan_table" border="0" width="100%" cellspacing="0" cellpadding="0">
+        <tbody>
+            <tr class="first_tr">
+            <!--<td>-->
+            <!--<input type="checkbox" class="checkAll" rel="order_id" />-->
+            <!--</td>-->
+                <td>订单编号</td>
+                <td>下单时间</td>
+                <td>类型</td>
+                <td class="arrow arrow1">收入
+                        <span>
+                                <i></i>
+                                <s></s>
+                            </span>
+                </td>
+                <td class="arrow arrow2">支出
+                        <span>
+                                <i></i>
+                                <s></s>
+                            </span>
+                </td>
+            </tr>
+            <script>
+                    $(function () {
+                        arrow('arrow1')
+                        arrow('arrow2')
+                        function arrow(name) {
+                            var i = 0;
+                            $('.' + name + '').on('click', function () {
+                                i++;
+                                if (i % 2) {
+                                    this.childNodes[1].className = 'ascending';
+                                } else {
+                                    this.childNodes[1].className = 'descending';
+                                }
+                            })
+                        }
+                    })
+                </script>
+                <tr>
+                    <!--<td>-->
+                    <!--<input class="child_order_id" type="checkbox" name="order_id[]" value="<{$var.order_id}>" />-->
+                    <!--</td>-->
+                    <td>
+                        D2017120848529910518
+                    </td>
+                    <td>
+                        2017-10-01 16:34:08
+                    </td>
+                    <td>
+                        活动收入
+                    </td>
+                    <td style="color: #1D99F9;">
+                        +128.00
+                    </td>
+                    <td style="color:#FF788D;">
+                        -128.00
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        D2017120848529910518
+                    </td>
+                    <td>
+                        2017-10-01 16:34:08
+                    </td>
+                    <td>
+                        活动收入
+                    </td>
+                    <td style="color: #1D99F9;">
+                        +128.00
+                    </td>
+                    <td style="color:#FF788D;">
+                        -128.00
+                    </td>
+                </tr>
+        </tbody>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

@@ -1,0 +1,348 @@
+<include file='public:header' />
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    /* table,form{
+        min-width: 1110px;
+    } */
+    /* .tuan_content {
+        padding: 30px 1%;
+        margin: 0 auto;
+    }
+
+    .tuanfabu_tabli.on {
+        border-left: none;
+        border-top: none;
+        background-color: #ffffff;
+        background: #1D99F9;
+        border-radius: 3px;
+    }
+
+    .tuanfabu_tabli.on a {
+        color: #fff;
+    }
+
+    .tuanfabu_tab {
+        padding-bottom: 20px;
+    }
+
+    .tuanfabu_tabli {
+        padding: 0 15px;
+        height: 30px;
+        border: none;
+        border-bottom: none 0;
+        background-color: #fff;
+        float: left;
+        margin: 0;
+        margin-right: 12px;
+    }
+
+    .tuan_top_t {
+        border-bottom: none;
+    }
+
+    .tuan_topser_l {
+        border-left: none;
+    } */
+    /* .tuan_top_t {
+        position: relative;
+        transform: translate(-15px);
+        padding: 0;
+    } */
+    /* .wave {
+        font-size: 20px;
+        margin: 0 5px;
+    } */
+    /* .tuan_table tr {
+        border: none;
+        border-bottom: solid 1px #EAF0F6;
+        border-radius: 4px;
+        overflow: hidden;
+    } */
+
+    .mar {
+        margin: 0 28px 0 8px;
+    }
+
+    .act {
+        width: 300px!important;
+    }
+    /* .tuan_topser {
+        border-radius: 3px;
+    }
+
+    .tuan_topbt {
+        border: 1px solid #A4B4C4;
+        background-color: #fff;
+        color: #364A5E;
+        margin-left: 30px!important;
+        border-radius: 3px;
+    } */
+    /* .tuan_table tr:first-child td{
+        padding: 17px 0;
+    } */
+
+    .tuan_table tr td input {
+        outline: none;
+        border: 1px solid rgb(17, 139, 240);
+        background: red;
+    }
+    /* .tuan_table {
+        border: none;
+    }
+
+    .tuan_table td {
+        padding: 20px 0;
+    }
+
+    .tuan_table {
+        text-align: left;
+    } */
+
+    .tuan_table tr td:nth-child(1) {
+        padding-left: 20px!important;
+        /* width: 50px; */
+    }
+
+    .tuan_table tr td {
+        padding-left: 30px!important;
+        padding-right: 14px!important;
+    }
+
+    .tuan_table tr td:nth-child(2) {
+        /* padding-left: 10px!important; */
+    }
+
+    .tuan_table tr td:nth-child(2)::before {
+        /* display: none; */
+    }
+
+    .tuan_table tr td:nth-child(3) {
+        /* padding-right: 40px!important; */
+        /* width: 130px; */
+    }
+
+    .tuan_table tr td:nth-child(4) {
+        /* width: 130px; */
+    }
+
+    .tuan_table tr td:nth-child(5) {
+        padding-right: 30px!important;
+    }
+
+    .tuan_table tr td:nth-child(6) {
+        /* width: 130px; */
+    }
+
+    .tuan_table tr td:nth-child(7) {
+        /* width: 180px; */
+    }
+
+    .tuan_table tr td:nth-child(8) {
+        /* width: 110px; */
+    }
+
+    input[type='text'] {
+        height: 34px;
+        margin-bottom: 16px;
+    }
+
+    input[type='checkbox'] {
+        position: relative;
+        transform: translateY(2px);
+    }
+
+    .tuan_top {
+        margin-bottom: 4px;
+    }
+
+    .tuan_topser_l select {
+        width: 180px;
+        height: 34px;
+        margin: 0 28px 0 10px;
+        border: 1px solid #dbdbdb;
+        /* color: #A4B4C4 ; */
+        color: #C8D5E0;
+        border-radius: 4px;
+        padding-left: 5px;
+    }
+
+    .tuan_topser_l select option {
+        height: 34px;
+        color: #304B5D;
+    }
+
+    table,
+    form {
+        min-width: 1200px;
+    }
+</style>
+<!-- <div class="sjgl_lead">
+    <ul>
+        <li>
+            <a href="#">商家管理</a> >
+            <a href="">商城</a> >
+            <a>卖出商品</a>
+        </li>
+    </ul>
+</div> -->
+<div class="tuan_content">
+    <form method="get" action="<{:U('order/index')}>">
+        <div class="tuanfabu_tab">
+            <ul>
+                <li class="tuanfabu_tabli <if condition='$type eq 1'> on </if>">
+                    <a href="<{:U('order/index',array('type'=>1))}>">全部订单</a>
+                </li>
+                <li class="tuanfabu_tabli <if condition='$type eq 2'> on </if>">
+                    <a href="<{:U('order/index',array('type'=>2))}>">待使用</a>
+                </li>
+                <li class="tuanfabu_tabli <if condition='$type eq 3'> on </if>">
+                    <a href="<{:U('order/index',array('type'=>3))}>">已使用</a>
+                </li>
+                <li class="tuanfabu_tabli <if condition='$type eq 4'> on </if>">
+                    <a href="<{:U('order/index',array('type'=>4))}>">退款</a>
+                </li>
+            </ul>
+        </div>
+        <div class="radius5 tuan_top">
+            <div class="tuan_top_t">
+                <div class="left tuan_topser_l">活动名称：
+                    <!-- <input type="text" placeholder="请输入活动名称或关键词" name="title" value="<{$title}>" class="radius3 tuan_topser mar act" style="width:180px"/> -->
+                    <select class="select" name="goods_id">
+                        <option value="-1">请选择要查询的活动</option>
+                        <foreach name="arrs" item="vs">
+                            <option value="<{$vs.goods_id}>" <eq name="goods_id" value="$vs.goods_id">selected="selected"</eq>>
+                                <{$vs.title}>
+                            </option>
+                        </foreach>
+                    </select>
+                    <script>
+                        $(function () {
+                            console.log($('.select').val(),1)
+                            if($('.select').val()!='-1'){
+                                $('.select').css('color', '#304B5D')
+                            }
+                            $('.select').on('change', function () {
+                                $('.select').css('color', '#304B5D')
+                            })
+                        })
+                    </script>
+                    订单编号：
+                    <input type="text" name="order_id" value="<{$order_id}>" class="radius3 tuan_topser mar" style="width:180px" /> 客户名称：
+                    <input type="text" placeholder="请输入客户名称" name="nickname" value="<{$nickname}>" class="radius3 tuan_topser mar" style="width:180px"
+                    />
+                    <br>&nbsp;&nbsp;&nbsp;&nbsp;客户电话：
+                    <input type="text" placeholder="请填写客户的电话号码" name="mobile" value="<{$mobile}>" class="radius3 tuan_topser mar" style="width:180px"
+                    />选择时间：
+                    <input type="text" class="radius3 tuan_topser" name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"
+                        style="width:180px;margin-left:8px" />
+                    <span class="wave">~</span>
+                    <input type="text" class="radius3 tuan_topser" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"
+                        style="width:180px" />
+                    <!--订单状态：<select name="status" class="radius3 tuan_topser" style="width:180px">-->
+                    <!--<option value="">请选择订单状态</option>-->
+                    <!--<foreach name="status_type" item="vs" key="k">-->
+                    <!--<option value="<{$k}>" <eq name="k" value="$status">selected="selected"</eq>><{$vs}></option>-->
+                    <!--</foreach>-->
+                    <!--</select>-->
+                    <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="查询" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <table class="tuan_table" border="0" width="100%" cellspacing="0" cellpadding="0">
+        <tbody>
+            <tr class="first_tr">
+                <!-- <td>
+                    <input type="checkbox" class="checkAll" rel="order_id" />
+                </td> -->
+                <td>订单编号</td>
+                <td>
+                    活动名称</td>
+                <td class="arrow arrow1">
+                    订单金额
+                    <span>
+                        <i></i>
+                        <s></s>
+                    </span>
+                </td>
+                <td>
+                    用户昵称</td>
+                <td>
+                    用户电话</td>
+                <td class="arrow arrow2">
+                    提交时间
+                    <span>
+                        <i></i>
+                        <s></s>
+                    </span>
+                </td>
+                <td>
+                    状态</td>
+                <!-- <td>操作</td> -->
+            </tr>
+            <script>
+                $(function () {
+                    arrow('arrow1')
+                    arrow('arrow2')
+
+                    function arrow(name) {
+                        var i = 0;
+                        $('.' + name + '').on('click', function () {
+                            i++;
+                            console.log(this.childNodes)
+                            if (i % 2) {
+                                this.childNodes[1].className = 'ascending';
+                            } else {
+                                this.childNodes[1].className = 'descending';
+                            }
+                        })
+                    }
+                })
+            </script>
+            <foreach name="list" item="var">
+                <tr>
+                    <!-- <td>
+                        <input class="child_order_id" type="checkbox" name="order_id[]" value="<{$var.order_id}>" />
+                    </td> -->
+                    <td>
+                        <a href="<{:U('order/detail',array('order_id'=>$var['order_id']))}>" style="color:dodgerblue">
+                            <{$var.order_id}>
+                        </a>
+                    </td>
+                    <td>
+                        <{$var.title}>
+                    </td>
+                    <td>
+                        <{$var.total_price}>
+                    </td>
+                    <td>
+                        <{$var.nickname}>
+                    </td>
+                    <td>
+                        <{$var.mobile}>
+                    </td>
+                    <td>
+                        <{$var.created_at}>
+                    </td>
+                    <td>
+                        <if condition="$var.status eq 0">未付款
+                            <elseif condition="$var.status eq 1" />已付款待出票
+                            <elseif condition="$var.status eq 2" />已出票
+                            <elseif condition="$var.status eq 3" />已核销
+                            <elseif condition="$var.status eq 10" />申请退款
+                            <elseif condition="$var.status eq 12" />退款中
+                            <elseif condition="$var.status eq 15" />退款完成
+                            <else/>
+                        </if>
+                    </td>
+                </tr>
+            </foreach>
+        </tbody>
+    </table>
+    <{$page}>
+</div>
+
+<include file='public:footer' />

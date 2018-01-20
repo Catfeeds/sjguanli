@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta name="screen-orientation"content="portrait">
+    <meta name="x5-orientation"content="portrait">
+    <meta name="x5-page-mode" content="app">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的优惠劵</title>
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/common.css">
+    <link rel="stylesheet" href="__PUBLIC__/H5/css/commission.css">
+
+    <script src="__PUBLIC__/H5/js/jquery-1.8.3.min.js"></script>
+    <script src="__PUBLIC__/H5/js/vue2.js"></script>
+    <script src="__PUBLIC__/H5/js/jsweixin-1.2.0.js"></script>
+</head>
+
+<body>
+<script>
+    var _mtac = {};
+    (function() {
+        var mta = document.createElement("script");
+        mta.src = "http://pingjs.qq.com/h5/stats.js?v2.0.4";
+        mta.setAttribute("name", "MTAH5");
+        mta.setAttribute("sid", "500546406");
+
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(mta, s);
+    })();
+</script>
+<div id="contentBox" v-cloak>
+    <a href="javascript:void(0)" class="head">
+        <div class="fl">
+            <s></s>
+            <span>点击查看 《优惠说明》</span>
+        </div>
+        <i class="fr"></i>
+    </a>
+    <div class="msg">
+        <img src="<{$userInfo['face']}>" alt="">
+        <p><{$userInfo['nickname']}></p>
+        <div>
+            <span>优惠劵 </span><b><{$userInfo['couponTotal']}>张 / </b><span>已邀请好友</span><b> <{$userInfo['friendTotal']}> 名</b>
+        </div>
+    </div>
+    <div class="from">
+        邀请好友列表
+    </div>
+    <div class="list">
+        <ul>
+            <foreach name='usersList' item='item'>
+            <li>
+                <img src="<{$item.face}>" alt="">
+                <div class="name fl">
+                    <p><{$item.nickname}></p>
+                </div>
+                <div class="fr">
+                    <span><{$item.reg_time}></span>
+                </div>
+            </li>
+            </foreach>
+        </ul>
+    </div>
+    <!-- 说明 -->
+    <div class="mask">
+        <div class="outer">
+            <div class="showCode">
+                <h3 class="explain">优惠说明</h3>
+                <p><b>一.&nbsp;</b>每成功邀请2个好友，即可获得10元优惠券；</p>
+                <p><b>二.&nbsp;</b>每个订单最多可用20元优惠券。</p>
+                <div class="close"></div>
+            </div>
+        </div>
+    </div>
+    <!-- 没有好友 -->
+    <!-- <div class="none">
+        <img src="../image/icon_chaping70x70@3x.png" alt="">
+        <p>还没有邀请好友<br>快邀请好友获取优惠劵吧</p>
+    </div> -->
+</div>
+</body>
+<script src="__PUBLIC__/H5/js/vue2.js"></script>
+<script src="__PUBLIC__/H5/js/jquery-1.8.3.min.js"></script>
+<script>
+    var app = new Vue({
+        el: '#contentBox',
+        data: {
+        },
+        created() {
+        },
+        mounted() {
+            //提示弹框只弹一次
+            var alert_message_id = "<{$userInfo['alert_message_id']}>";
+            if(alert_message_id == 0) {
+                $('.mask').fadeIn();
+                "<?php cookie('alert_message_id', 1, time() + 99 * 365 * 24 * 3600);   //设置cookie有效期 ?>";
+            }
+            $('.head').on('click',function(){
+                $('.mask').fadeIn();
+            })
+            $('.close').on('click',function(){
+                $('.mask').fadeOut();
+            })
+        },
+        methods: {
+        }
+
+    });
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,253 @@
+<include file='public:header' />
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    table,
+    form {
+        min-width: 1262px;
+    }
+
+    .goods_tab {
+        padding-top: 30px;
+        padding-left: 16px;
+    }
+
+    .goods_form {
+        overflow: visible;
+    }
+
+    .goods_main {
+        padding-top: 0;
+    }
+
+    select {
+        width: 180px;
+        height: 34px;
+        margin: 0 28px 0 10px;
+        border: 1px solid #dbdbdb;
+        /* color: #A4B4C4 ; */
+        color: #C8D5E0;
+        border-radius: 4px;
+        padding-left: 5px;
+    }
+
+    select option {
+        height: 34px;
+        color: #304B5D;
+    }
+
+    form {
+        padding-left: 20px;
+        margin-bottom: 20px;
+    }
+
+    form button {
+        border: 0;
+        padding: 0;
+        margin: 0!important;
+        width: 112px;
+        text-align: center;
+        line-height: 35px;
+        border: 0;
+        background: #0ECEAF;
+        color: #fff;
+        font-size: 14px;
+        border-radius: 4px;
+    }
+
+    table tr td:first-child {
+        padding-left: 20px;
+    }
+
+    table tr {
+        border-radius: 10px;
+    }
+    .look_reason a {
+        display: block;
+        width: 13px;
+        height: 13px;
+        position: absolute;
+        top: 9px;
+        right: 10px;
+        background: url('__TMPL__statics/images/dialog.png');
+    }
+</style>
+<!-- <div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">商城</a> > <a>商城商品</a></li>
+    </ul>
+</div> -->
+
+<!-- 新增 -->
+<div class="tuanfabu_tab goods_tab">
+    <ul>
+        <li class="tuanfabu_tabli <if condition='$status eq 88'> on </if>">
+            <a href="<{:U('money/clearinglist',array('status'=>88))}>">全部结算</a>
+        </li>
+        <li class="tuanfabu_tabli <if condition='$status eq 0'> on </if>">
+            <a href="<{:U('money/clearinglist',array('status'=>0))}>">待审核</a>
+        </li>
+        <li class="tuanfabu_tabli <if condition='$status eq 1'> on </if>">
+            <a href="<{:U('money/clearinglist',array('status'=>1))}>">审核不通过</a>
+        </li>
+        <li class="tuanfabu_tabli <if condition='$status eq 2'> on </if>">
+            <a href="<{:U('money/clearinglist',array('status'=>2))}>">待结算</a>
+        </li>
+        <li class="tuanfabu_tabli <if condition='$status eq 3'> on </if>">
+            <a href="<{:U('money/clearinglist',array('status'=>3))}>">已结算</a>
+        </li>
+        <!-- <li class="tuanfabu_tab publish right">
+            <div class="right tuan_topfb_r" style="float: left">
+
+                    <span>+</span>发布活动</a>
+            </div>
+        </li> -->
+    </ul>
+</div>
+<form action="" method="post" target="baocms_frm">
+    活动名称：
+    <!-- <input type="text" placeholder="请输入活动名称或关键词" name="title" value="<{$title}>" class="radius3 tuan_topser mar act" style="width:180px"/> -->
+    <select class="select" name="goods_id">
+        <option value="-1">请选择要查询的活动</option>
+        <foreach name="arrs" item="vs">
+            <option value="<{$vs.goods_id}>" <eq name="goods_id" value="$vs.goods_id">selected="selected"</eq>>
+                <{$vs.title}>
+            </option>
+        </foreach>
+    </select>
+    <button>查询</button>
+</form>
+<div class="tuan_content goods_main">
+
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr class="first_tr">
+            <td class="arrow arrow1">
+                申请时间
+                <span>
+                    <i></i>
+                    <s></s>
+                </span>
+            </td>
+            <td class="arrow arrow2">
+                结算订单数
+                <span>
+                    <i></i>
+                    <s></s>
+                </span>
+            </td>
+            <td class="arrow arrow3">
+                订单总额（元）
+                <span>
+                    <i></i>
+                    <s></s>
+                </span>
+            </td>
+            <td class="">订单状态
+                <!-- <span>
+                    <i></i>
+                    <s></s>
+                </span> -->
+            </td>
+            <td>操作</td>
+            <!-- <td></td> -->
+        </tr>
+        <script>
+            $(function () {
+                arrow('arrow1')
+                arrow('arrow2')
+                arrow('arrow3')
+
+                function arrow(name) {
+                    var i = 0;
+                    $('.' + name + '').on('click', function () {
+                        i++;
+                        if (i % 2) {
+                            this.childNodes[1].className = 'ascending';
+                        } else {
+                            this.childNodes[1].className = 'descending';
+                        }
+                    })
+                }
+            })
+        </script>
+        <foreach name="list" item="var">
+            <tr>
+                <td>
+                    <{$var.applicant_time}>
+                </td>
+                <td>
+                    <{$var.order_total_num}>
+                </td>
+                <td>
+                    <{$var.order_total_amount}>
+                </td>
+                <td>
+                    <if condition="$var.status eq 0">待审核
+                        <elseif condition="$var.status eq 1" />审核不通过
+                        <elseif condition="$var.status eq 2" />待结算
+                        <else/>已结算
+                    </if>
+                </td>
+                <td>
+                    <if condition="$var.status eq 1">
+                        <a href="javascript:void()" style="color:deepskyblue" class="reason">查看原因</a>
+                    </if>
+                    <a href="<{:U('money/checksettlement',array('id'=>$var['settlement_id']))}>" style="color:deepskyblue">查看结算单</a>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <div class="look_reason">
+        <div class="lr_header">申请结算</div>
+        <div class="lr_content">
+            <div>
+                <p>时间</p>
+                <p>订单数</p>
+                <p>订单总额</p>
+                <p>状态</p>
+                <p>原因</p>
+            </div>
+            <div>
+                <p>
+                    <{$var.applicant_time}>
+                </p>
+                <p>
+                    <{$var.order_total_num}>
+                </p>
+                <p>
+                    <{$var.order_total_amount}>
+                </p>
+                <p>
+                    <if condition="$var.status eq 0">待审核
+                        <elseif condition="$var.status eq 1" />审核不通过
+                        <elseif condition="$var.status eq 2" />待结算
+                        <else/>已结算
+                    </if>
+                </p>
+                <p>
+                    <{$var.auditor_reasons}>
+                </p>
+            </div>
+        </div>
+        <a href="javascript: void(0)" class="close_reason">
+
+        </a>
+        <script type="text/javascript">
+            $('.reason').on('click', function () {
+                $('.look_reason').css('opacity', '1');
+            })
+            $('.close_reason').on('click', function () {
+                $('.look_reason').css('opacity', '0');
+            })
+        </script>
+    </div>
+</div>
+
+<script>
+</script>
+<include file='public:footer' />

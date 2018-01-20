@@ -1,0 +1,90 @@
+body{
+    background-color: #f4f5f9;
+}
+
+.contentBox{
+    position: relative;
+}
+.remind{
+    padding-left: 10px;
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    font-size: 12px;
+    color: #525252;
+}
+.remind .icon{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    background: url('../image/icon_warnning_red16x16@2x.png') no-repeat;
+    background-size: 16px 16px;
+}
+.remind span{
+    vertical-align: middle;
+}
+
+
+.code{
+    position: relative;
+}
+.code input{
+    padding-left:10px;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 25px;
+    font-weight: 800;
+    color: #333;
+    background-color: #fff;
+}
+.code .scanBox{
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    text-align: center;
+}
+.code .scanBox .scan{
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    background: url('../image/icon_saoma21x21@2x.png') no-repeat;
+    background-size: 21px 21px;
+}
+.code .sub{
+    position: absolute;
+    left: 0;
+    bottom: -70px;
+    width: 100%;
+    padding: 0 10px;
+}
+.code .sub button{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background:linear-gradient(to right,#1accff,#0693f6);
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+}
+
+
+.error{
+    position: absolute;
+    left: 50%;
+    margin-top: -40px;
+    margin-left: -70px;
+    top: 50%;
+    width: 140px;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 5px;
+    background: rgba(0,0,0,.8);
+    text-align: center;
+    font-size: 13px;
+    color: #fff;
+}
+

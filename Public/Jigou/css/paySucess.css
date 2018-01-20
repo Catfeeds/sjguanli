@@ -1,0 +1,59 @@
+body{
+   background-color: #f4f5f9; 
+}
+
+
+.remind{
+    overflow: hidden;
+    width: 100%;
+    height: 163px;
+    background-color: #fff;
+}
+.remind .pic{
+    margin: 0 auto;
+    margin-top: 22px;
+    width: 60px;
+    height: 60px;
+    background: url('../image/icon_success60x60@2x.png') no-repeat;
+    background-size: 60px 60px;
+}
+.remind .txt{
+    margin-top: 17px;
+    margin-bottom: 9px;
+    line-height: 14px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+.remind .mineActive{
+    margin: 0 auto;
+    width: 91px;
+    height: 27px;
+    padding: 4.5px 8.5px;
+    border: 1px solid #00bc71;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #00bc71;
+}
+
+
+.common{
+    padding: 0 15px;
+    margin-bottom: 1px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    background-color: #fafafc;
+    font-size: 13px;
+}
+.common span{
+    margin-right: 30px;
+    color: #999;
+}
+.common i{
+    color: 333;
+}
+.common .sp1{
+    width: 208px;
+}
